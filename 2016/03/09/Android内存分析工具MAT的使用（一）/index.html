@@ -1,0 +1,764 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="【Android，性能优化，内存分析】," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言
+内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
+正文
+DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android内存检测工具MAT的使用（一）">
+<meta property="og:url" content="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/index.html">
+<meta property="og:site_name" content="Nope_1">
+<meta property="og:description" content="前言
+内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
+正文
+DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
+<meta property="og:image" content="http://i.imgur.com/KDF4UVa.png">
+<meta property="og:image" content="http://i.imgur.com/2mvxzLU.png">
+<meta property="og:image" content="http://i.imgur.com/HWemtiB.png">
+<meta property="og:image" content="http://i.imgur.com/8O8aGQS.jpg">
+<meta property="og:updated_time" content="2017-03-22T08:00:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android内存检测工具MAT的使用（一）">
+<meta name="twitter:description" content="前言
+内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
+正文
+DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
+<meta name="twitter:image" content="http://i.imgur.com/KDF4UVa.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/"/>
+
+
+
+
+
+  <title> Android内存检测工具MAT的使用（一） | Nope_1 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nope_1</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The harder the more fortunate...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope_1">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android内存检测工具MAT的使用（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-09T10:24:03+08:00">
+                2016-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li><p>内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2></li>
+<li><p>DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，就可以定位内存泄漏的原因。</p>
+</li>
+<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" title="下载地址" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
+</ul>
+<p>1.hprof文件的获取</p>
+<ul>
+<li><p>打开Android Device Monitor,然后按图示选择 </p>
+<p>  <img src="http://i.imgur.com/KDF4UVa.png" alt=""><br>  <img src="http://i.imgur.com/2mvxzLU.png" alt=""></p>
+</li>
+<li><p>转换 hprof文件</p>
+<p> DDMS Dump 出的文件要经过转换才能被 MAT识别，Android SDK提供了这个工具 hprof-conv (位于 sdk/tools下，eclipse导出的无需转换)</p>
+<p> 打开命令提示符（CMD）切换到tools目录下，执行hprof-conv aaa.hprof bbb.hprof即可完成转换，aaa.hprof 代表转换前的原文件，bbb.hprof代表转换后的。</p>
+</li>
+<li><p>打开 hprof文件</p>
+<p>  用 MAT打开转换后的 hprof文件，如下图：</p>
+<p>  <img src="http://i.imgur.com/HWemtiB.png" alt=""></p>
+<p>  到此MAT工具的使用就简单的介绍完了，当然了，重点是分析.hprof文件，这个在下一节介绍。</p>
+</li>
+</ul>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><ul>
+<li>MAT可通过分析.hprof文件来确定内存泄漏情况</li>
+<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
+<li>通过Android Device Monitor获取.hprof文件并用sdk/tools下的hprof-conv.exe工具进行转换</li>
+<li>通过MAT来分析.hprof文件查找内存泄漏情况</li>
+</ul>
+<h1 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h1><ul>
+<li><p>Android Studio新版本已经支持直接导出.hprof文件，如下图：</p>
+<p>  <img src="http://i.imgur.com/8O8aGQS.jpg" alt=""></p>
+</li>
+</ul>
+<h1 id="友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633"><a href="#友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633" class="headerlink" title="友情链接：http://blog.csdn.net/guolin_blog/article/details/42238633"></a>友情链接：<a href="http://blog.csdn.net/guolin_blog/article/details/42238633" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/42238633</a></h1>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/【Android，性能优化，内存分析】/" rel="tag"># 【Android，性能优化，内存分析】</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/08/Android-常见内存泄漏/" rel="next" title="Android 常见内存泄漏">
+                <i class="fa fa-chevron-left"></i> Android 常见内存泄漏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/09/Android内存分析工具MAT的使用（二）/" rel="prev" title="Android内存分析工具MAT的使用（二）">
+                Android内存分析工具MAT的使用（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="谢德良" />
+          <p class="site-author-name" itemprop="name">谢德良</p>
+           
+              <p class="site-description motion-element" itemprop="description">xiedeiang.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结："><span class="nav-number"></span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充说明："><span class="nav-number"></span> <span class="nav-text">补充说明：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633"><span class="nav-number"></span> <span class="nav-text">友情链接：http://blog.csdn.net/guolin_blog/article/details/42238633</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢德良</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
