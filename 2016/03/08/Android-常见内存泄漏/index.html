@@ -97,7 +97,7 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
 <meta property="og:description" content="##常见内存泄漏点
 一、 Handler 内部类长时间挂在线程中二、 WebView不适当的使用####1.CookieSyncManager
 CookieSyncManager是个全局静态单例，操作系统内部使用了App的Activity作为Context构造了它的实例。我们应该在App启动的时候，抢先帮系统创建这个单例，而且要用applicationContext，让它不会引用到Activity">
-<meta property="og:updated_time" content="2017-03-22T08:00:34.000Z">
+<meta property="og:updated_time" content="2017-03-23T12:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 常见内存泄漏">
 <meta name="twitter:description" content="##常见内存泄漏点
