@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android，性能优化，内存分析," />
+  <meta name="keywords" content="构建工具，Maven，Ant," />
 
 
 
@@ -87,30 +87,31 @@
 
 
 
-<meta name="description" content="前言
-内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
-正文
-DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
+<meta name="description" content="Maven是什么，以及为什么要使用Maven1.概述
+Maven是一个构建工具,服务与构建.使用Maven配置好项目后,输入简单的命令,如:mvn clean install,Maven会帮我们处理那些繁琐的任务.
+Maven是跨平台的.
+Maven最大化的消除了构建的重复.
+Maven可以帮助我们标准化构建过程.所有的项目都是简单一致的,简化了学习成本.
+总之,Maven作为一个构建工具,不仅帮">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android内存检测工具MAT的使用（一）">
-<meta property="og:url" content="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/index.html">
+<meta property="og:title" content="Maven简介">
+<meta property="og:url" content="http://yoursite.com/2017/07/30/Maven简介/index.html">
 <meta property="og:site_name" content="Nope_1">
-<meta property="og:description" content="前言
-内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
-正文
-DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
-<meta property="og:image" content="http://i.imgur.com/KDF4UVa.png">
-<meta property="og:image" content="http://i.imgur.com/2mvxzLU.png">
-<meta property="og:image" content="http://i.imgur.com/HWemtiB.png">
-<meta property="og:image" content="http://i.imgur.com/8O8aGQS.jpg">
-<meta property="og:updated_time" content="2017-03-25T11:08:55.000Z">
+<meta property="og:description" content="Maven是什么，以及为什么要使用Maven1.概述
+Maven是一个构建工具,服务与构建.使用Maven配置好项目后,输入简单的命令,如:mvn clean install,Maven会帮我们处理那些繁琐的任务.
+Maven是跨平台的.
+Maven最大化的消除了构建的重复.
+Maven可以帮助我们标准化构建过程.所有的项目都是简单一致的,简化了学习成本.
+总之,Maven作为一个构建工具,不仅帮">
+<meta property="og:updated_time" content="2017-07-31T08:02:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android内存检测工具MAT的使用（一）">
-<meta name="twitter:description" content="前言
-内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
-正文
-DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，">
-<meta name="twitter:image" content="http://i.imgur.com/KDF4UVa.png">
+<meta name="twitter:title" content="Maven简介">
+<meta name="twitter:description" content="Maven是什么，以及为什么要使用Maven1.概述
+Maven是一个构建工具,服务与构建.使用Maven配置好项目后,输入简单的命令,如:mvn clean install,Maven会帮我们处理那些繁琐的任务.
+Maven是跨平台的.
+Maven最大化的消除了构建的重复.
+Maven可以帮助我们标准化构建过程.所有的项目都是简单一致的,简化了学习成本.
+总之,Maven作为一个构建工具,不仅帮">
 
 
 
@@ -138,13 +139,13 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/30/Maven简介/"/>
 
 
 
 
 
-  <title> Android内存检测工具MAT的使用（一） | Nope_1 </title>
+  <title> Maven简介 | Nope_1 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -303,7 +304,7 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/Maven简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="谢德良">
@@ -324,7 +325,7 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
             
             
               
-                Android内存检测工具MAT的使用（一）
+                Maven简介
               
             
           </h1>
@@ -339,8 +340,8 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-09T10:24:03+08:00">
-                2016-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T15:56:35+08:00">
+                2017-07-30
               </time>
             
 
@@ -375,40 +376,34 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li><p>内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2></li>
-<li><p>DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，就可以定位内存泄漏的原因。</p>
-</li>
-<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" title="下载地址" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
+        <h4 id="Maven是什么，以及为什么要使用Maven"><a href="#Maven是什么，以及为什么要使用Maven" class="headerlink" title="Maven是什么，以及为什么要使用Maven"></a>Maven是什么，以及为什么要使用Maven</h4><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><ul>
+<li>Maven是一个构建工具,服务与构建.使用Maven配置好项目后,输入简单的命令,如:mvn clean install,Maven会帮我们处理那些繁琐的任务.</li>
+<li>Maven是跨平台的.</li>
+<li>Maven最大化的消除了构建的重复.</li>
+<li>Maven可以帮助我们标准化构建过程.所有的项目都是简单一致的,简化了学习成本.</li>
+<li>总之,Maven作为一个构建工具,不仅帮我们自动化构建,还能抽象构建过程,提供构建任务实现.他跨平台,对外提供一致的操作接口,这一切足以使他成为优秀的,流行的构建工具.</li>
+<li>但是Maven不仅是构建工具,他还是一个依赖管理工具和项目信息管理工具.他还提供了中央仓库,能帮我们自动下载构件.</li>
+<li>使用Maven还能享受一个额外的好处，即Maven对于项目目录结构、测试用例命名方式等内容都有既定的规则，只要遵循了这些成熟的规则，用户在项目间切换的时候就免去了额外的学习成本，可以说是约定优于配置（Convention Over Configuration）。</li>
 </ul>
-<p>1.hprof文件的获取</p>
-<ul>
-<li><p>打开Android Device Monitor,然后按图示选择 </p>
-<p>  <img src="http://i.imgur.com/KDF4UVa.png" alt=""><br>  <img src="http://i.imgur.com/2mvxzLU.png" alt=""></p>
-</li>
-<li><p>转换 hprof文件</p>
-<p> DDMS Dump 出的文件要经过转换才能被 MAT识别，Android SDK提供了这个工具 hprof-conv (位于 sdk/tools下，eclipse导出的无需转换)</p>
-<p> 打开命令提示符（CMD）切换到tools目录下，执行hprof-conv aaa.hprof bbb.hprof即可完成转换，aaa.hprof 代表转换前的原文件，bbb.hprof代表转换后的。</p>
-</li>
-<li><p>打开 hprof文件</p>
-<p>  用 MAT打开转换后的 hprof文件，如下图：</p>
-<p>  <img src="http://i.imgur.com/HWemtiB.png" alt=""></p>
-<p>  到此MAT工具的使用就简单的介绍完了，当然了，重点是分析.hprof文件，这个在下一节介绍。</p>
-</li>
+<h4 id="2-对比-Maven-IDE-Mark-Ant"><a href="#2-对比-Maven-IDE-Mark-Ant" class="headerlink" title="2.对比,Maven,IDE,Mark,Ant"></a>2.对比,Maven,IDE,Mark,Ant</h4><h5 id="a-IDE"><a href="#a-IDE" class="headerlink" title="a.IDE:"></a>a.IDE:</h5><ul>
+<li>基本上所有的主流IDE都集成了Maven,我们可以在IDE中方便的运行Mave执行构建.IDE依赖大量的手工操作。编译、测试、代码生成等工作都是相互独立的，很难一键完成所有工作。手工劳动往往意味着低效，意味着容易出错很难在项目中统一所有的IDE配置，每个人都有自己的喜好。也正是由于这个原因，一个在机器A上可以成功运行的任务，到了机器B的IDE中可能就会失败。<br>所以,要合理使用IDE,不过多依赖.Maven是专家.</li>
 </ul>
-<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><ul>
-<li>MAT可通过分析.hprof文件来确定内存泄漏情况</li>
-<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
-<li>通过Android Device Monitor获取.hprof文件并用sdk/tools下的hprof-conv.exe工具进行转换</li>
-<li>通过MAT来分析.hprof文件查找内存泄漏情况</li>
+<h5 id="b-Make："><a href="#b-Make：" class="headerlink" title="b.Make："></a>b.Make：</h5><ul>
+<li>也许是最早的构建工具，具体不详,没用过,可以不了解.Make的强大之处在于它可以利用所有系统的本地命令，尤其是UNIX/Linux系统，丰富的功能、强大的命令能够帮助Make快速高效地完成任务。<br>但是，Make将自己和操作系统绑定在一起了。也就是说，使用Make，就不能实现（至少很难）跨平台的构建，这对于Java来说是非常不友好的。此外，Makefile的语法也成问题，很多人抱怨Make构建失败的原因往往是一个难以发现的空格或Tab使用错误。</li>
 </ul>
-<h1 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h1><ul>
-<li><p>Android Studio新版本已经支持直接导出.hprof文件，如下图：</p>
-<p>  <img src="http://i.imgur.com/8O8aGQS.jpg" alt=""></p>
+<h5 id="c-Ant："><a href="#c-Ant：" class="headerlink" title="c.Ant："></a>c.Ant：</h5><ul>
+<li>是意指“另一个整洁的工具”（Another Neat Tool），它最早用来构建著名的Tomcat，其作者James Duncan Davidson创作它的动机就是因为受不了Makefile的语法格式。我们可以将Ant看成是一个Java版本的Make，也正因为使用了Java，Ant是跨平台的。此外，Ant使用XML定义构建脚本，相对于Makefile来说，这也更加友好。</li>
+<li>和Make一样，Ant也都是过程式的，开发者显式地指定每一个目标，以及完成该目标所需要执行的任务。针对每一个项目，开发者都需要重新编写这一过程，这里其实隐含着很大的重复。Maven是声明式的，项目构建过程和过程各个阶段所需的工作都由插件实现，并且大部分插件都是现成的，开发者只需要声明项目的基本元素，Maven就执行内置的、完整的构建过程。这在很大程度上消除了重复。<br>Ant是没有依赖管理的，所以很长一段时间Ant用户都不得不手工管理依赖，这是一个令人头疼的问题。幸运的是，Ant用户现在可以借助Ivy管理依赖。而对于Maven用户来说，依赖管理是理所当然的，Maven不仅内置了依赖管理，更有一个可能拥有全世界最多Java开源软件包的中央仓库，Maven用户无须进行任何配置就可以直接享用。</li>
+</ul>
+<h4 id="3-Maven与极限编程"><a href="#3-Maven与极限编程" class="headerlink" title="3.Maven与极限编程"></a>3.Maven与极限编程</h4><ul>
+<li>极限编程（XP）是近些年在软件行业红得发紫的敏捷开发方法，它强调拥抱变化。</li>
+<li>首先看一下Maven如何帮助XP团队实现一些核心价值：<ul>
+<li>简单。Maven暴露了一组一致、简洁的操作接口，能帮助团队成员从原来的高度自定义的、复杂的构建系统中解脱出来，使用Maven现有的成熟的、稳定的组件也能简化构建系统的复杂度。<br>?交流与反馈。与版本控制系统结合后，所有人都能执行最新的构建并快速得到反馈。此外，自动生成的项目报告也能帮助成员了解项目的状态，促进团队的交流。</li>
+<li>Maven几乎能够很好地支持任何软件开发方法。例如，在传统的瀑布模型开发中，项目依次要经历需求开发、分析、设计、编码、测试和集成发布阶段。从设计和编码阶段开始，就可以使用Maven来建立项目的构建系统。在设计阶段，也完全可以针对设计开发测试用例，然后再编写代码来满足这些测试用例。然而，有了自动化构建系统，我们可以节省很多手动的测试时间。此外，尽早地使用构建系统集成团队的代码，对项目也是百利而无一害。最后，Maven还能帮助我们快速地发布项目。</li>
+</ul>
 </li>
 </ul>
-<h1 id="友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633"><a href="#友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633" class="headerlink" title="友情链接：http://blog.csdn.net/guolin_blog/article/details/42238633"></a>友情链接：<a href="http://blog.csdn.net/guolin_blog/article/details/42238633" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/42238633</a></h1>
+
       
     </div>
 
@@ -437,7 +432,7 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
       
         <div class="post-tags">
           
-            <a href="/tags/Android，性能优化，内存分析/" rel="tag"># Android，性能优化，内存分析</a>
+            <a href="/tags/构建工具，Maven，Ant/" rel="tag"># 构建工具，Maven，Ant</a>
           
         </div>
       
@@ -450,8 +445,8 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/08/Android-常见内存泄漏/" rel="next" title="Android 常见内存泄漏">
-                <i class="fa fa-chevron-left"></i> Android 常见内存泄漏
+              <a href="/2017/06/29/Mac下配置Termina-Gradle/" rel="next" title="Mac下配置Termina Gradle">
+                <i class="fa fa-chevron-left"></i> Mac下配置Termina Gradle
               </a>
             
           </div>
@@ -460,8 +455,8 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/09/Android内存分析工具MAT的使用（二）/" rel="prev" title="Android内存分析工具MAT的使用（二）">
-                Android内存分析工具MAT的使用（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/31/Gradle实战-发布包到maven仓库/" rel="prev" title="Gradle实战:发布包到maven仓库">
+                Gradle实战:发布包到maven仓库 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -591,7 +586,7 @@ DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结："><span class="nav-number"></span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充说明："><span class="nav-number"></span> <span class="nav-text">补充说明：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633"><span class="nav-number"></span> <span class="nav-text">友情链接：http://blog.csdn.net/guolin_blog/article/details/42238633</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maven是什么，以及为什么要使用Maven"><span class="nav-number">1.</span> <span class="nav-text">Maven是什么，以及为什么要使用Maven</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-概述"><span class="nav-number">2.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对比-Maven-IDE-Mark-Ant"><span class="nav-number">3.</span> <span class="nav-text">2.对比,Maven,IDE,Mark,Ant</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-IDE"><span class="nav-number">3.1.</span> <span class="nav-text">a.IDE:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-Make："><span class="nav-number">3.2.</span> <span class="nav-text">b.Make：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-Ant："><span class="nav-number">3.3.</span> <span class="nav-text">c.Ant：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Maven与极限编程"><span class="nav-number">4.</span> <span class="nav-text">3.Maven与极限编程</span></a></li></ol></div>
             
 
           </div>
