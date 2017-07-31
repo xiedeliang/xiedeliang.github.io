@@ -367,7 +367,226 @@
       
         
           
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="为什么要使用maven仓库"><a href="#为什么要使用maven仓库" class="headerlink" title="为什么要使用maven仓库"></a>为什么要使用maven仓库</h3><p>* </p>
+            <h3 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h3><h5 id="参考链接：http-xiedeliang-com-2017-07-30-Maven简介"><a href="#参考链接：http-xiedeliang-com-2017-07-30-Maven简介" class="headerlink" title="参考链接：http://xiedeliang.com/2017/07/30/Maven简介"></a>参考链接：<a href="">http://xiedeliang.com/2017/07/30/Maven简介</a></h5><h3 id="AAR简介"><a href="#AAR简介" class="headerlink" title="AAR简介"></a>AAR简介</h3><h5 id="AAR文件是Google为Android开发所设计的一种library格式，全名为Android-Archive-Library，与Java-Jar-Library不同的是，aar除了java-code之外还包含资源文件，即xml文件、图片、文字等。"><a href="#AAR文件是Google为Android开发所设计的一种library格式，全名为Android-Archive-Library，与Java-Jar-Library不同的是，aar除了java-code之外还包含资源文件，即xml文件、图片、文字等。" class="headerlink" title="AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。"></a>AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。</h5><h3 id="Jar简介"><a href="#Jar简介" class="headerlink" title="Jar简介"></a>Jar简介</h3><h5 id="JAR-文件格式以流行的-ZIP-文件格式为基础。与-ZIP-文件不同的是，JAR-文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和-JVM-这样的工具直接使用。在-JAR-中包含特殊的文件，如-manifests-和部署描述符，用来指示工具如何处理特定的-JAR。"><a href="#JAR-文件格式以流行的-ZIP-文件格式为基础。与-ZIP-文件不同的是，JAR-文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和-JVM-这样的工具直接使用。在-JAR-中包含特殊的文件，如-manifests-和部署描述符，用来指示工具如何处理特定的-JAR。" class="headerlink" title="JAR 文件格式以流行的 ZIP 文件格式为基础。与 ZIP 文件不同的是，JAR 文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和 JVM 这样的工具直接使用。在 JAR 中包含特殊的文件，如 manifests 和部署描述符，用来指示工具如何处理特定的 JAR。"></a>JAR 文件格式以流行的 ZIP 文件格式为基础。与 ZIP 文件不同的是，JAR 文件不仅用于压缩和发布，而且还用于部署和封装库、组件和插件程序，并可被像编译器和 JVM 这样的工具直接使用。在 JAR 中包含特殊的文件，如 manifests 和部署描述符，用来指示工具如何处理特定的 JAR。</h5><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul>
+<li>开发工具 Android Studio</li>
+<li>Maven仓库</li>
+<li>工程必须是lib工程，即该工程对应的build.gradle文件中要引用：apply plugin: ‘com.android.library’</li>
+<li><p>在根目录的build.gradle文件中添加如下配置：</p>
+<pre><code>allprojects {
+    apply plugin: &apos;idea&apos;
+    apply plugin: &apos;maven&apos;
+       configurations {
+        deployerJars
+    }
+}
+
+configurations.all {
+       resolutionStrategy.cacheChangingModulesFor 0, &apos;seconds&apos;//不使用缓存，使用仓库中最新的包
+}
+
+subprojects {  //表示除主工程外所有子模块
+    dependencies {
+        deployerJars &quot;org.apache.maven.wagon:wagon-http:2.2&quot;
+    }
+}
+
+ext { //仓库选择标记
+    repoType = &quot;remote&quot; //发布到远程仓库（下文中会用到）
+    // repoType = &quot;local&quot; //发布到本地仓库，方便调试，避免调试期间频繁上传到maven仓库（下文中会用到）
+} 
+</code></pre></li>
+<li><p>在gradle.properties文件中添加：</p>
+<pre><code>releaseRepositoryUrl=xxx  //正式包仓库地址（下文中会用到）
+snapshotRepositoryUrl=xxx //测试包仓库地址（下文中会用到）
+repositoryGroup=com.company.appname // 定义要上传的aar所在仓库的Group，可自定义，但后续引用处要与此一致
+</code></pre></li>
+<li><p>在工程根目录下新建一个名为“mavenAccount.properties”文件，并将该文件加入到ignore 中，该文件用于存放访问maven仓库的账户和密码以及本地仓库地址，只有该模块的开发者才有权发布该aar包。</p>
+<pre><code>repositoryUserName=xxx
+repositoryPassword=xxx
+localRepositoryUrl=file:///Users/admin/Documents/Android/repo/
+</code></pre></li>
+<li><p>编写上传脚本:</p>
+<ul>
+<li><p>生成AAR包：在工程根目录下新建一个名为“release-as-aar.gradle”的文件，其中脚本如下：</p>
+<pre><code>uploadArchives() {
+    repositories {
+        mavenDeployer {
+            configuration = configurations.deployerJars
+            println &apos;repoType : &apos; + rootProject.ext.repoType
+            if ((rootProject.ext.repoType).equals(&quot;remote&quot;)) { //发布到远程仓库
+                snapshotRepository(url: snapshotRepositoryUrl) { // 测试包
+                //从本地文件读取仓库账号和密码
+            def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+            if (propFile.canRead()) {
+                def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                    if (props != null &amp;&amp; props.containsKey(&apos;repositoryUserName&apos;) &amp;&amp; props.containsKey(&apos;repositoryPassword&apos;)) {
+                   def repositoryUserName = props[&apos;repositoryUserName&apos;]
+                    def repositoryPassword = props[&apos;repositoryPassword&apos;]
+                    authentication(userName: repositoryUserName, password: repositoryPassword)
+                    println &apos;上传到远程仓库&apos;
+                } else {
+                println &apos;没有发布权限&apos;
+                }
+            } else {
+                   println &apos;没有发布权限&apos;
+            }
+            }
+
+            repository(url: releaseRepositoryUrl) { // 正式包
+            def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+            if (propFile.canRead()) {
+                   def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                    if (props != null &amp;&amp; props.containsKey(&apos;repositoryUserName&apos;) &amp;&amp; props.containsKey(&apos;repositoryPassword&apos;)) {
+                def repositoryUserName = props[&apos;repositoryUserName&apos;]
+                def repositoryPassword = props[&apos;repositoryPassword&apos;]
+                authentication(userName: repositoryUserName, password: repositoryPassword)
+                println &apos;上传到远程仓库&apos;
+                } else {
+                    println &apos;没有发布权限&apos;
+                }
+            } else {
+                println &apos;没有发布权限&apos;
+            }
+            }
+            } else { // 发布到本地仓库
+                def localRepositoryUrl
+                def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+                if (propFile.canRead()) {
+                   def Properties props = new Properties()
+                props.load(new FileInputStream(propFile))
+                if (props != null &amp;&amp; props.containsKey(&apos;localRepositoryUrl&apos;)) {
+                    localRepositoryUrl = props[&apos;localRepositoryUrl&apos;]
+                    snapshotRepository(url: localRepositoryUrl)
+                    repository(url: localRepositoryUrl)
+                    println &apos;上传到本地仓库&apos;
+                } else {
+                    println &apos;没有发布权限&apos;
+                }
+                } else {
+                println &apos;没有发布权限&apos;
+                }
+            }
+        }
+    }
+}
+</code></pre></li>
+<li><p>生成Jar包：在工程根目录下新建一个名为“release-as-jar.gradle”的文件，其中脚本如下：</p>
+<pre><code>task androidJavadocs(type: Javadoc) {
+   failOnError = false
+source = android.sourceSets.main.java.srcDirs
+ext.androidJar = &quot;${android.sdkDirectory}/platforms/$                {
+        android.compileSdkVersion}/android.jar&quot;
+        classpath += files(ext.androidJar)
+    }
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = &apos;javadoc&apos;
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = &apos;sources&apos;
+    from android.sourceSets.main.java.srcDirs
+}
+
+uploadArchives {
+    repositories {
+       mavenDeployer {
+            configuration = configurations.deployerJars
+            println &apos;repoType : &apos; + rootProject.ext.repoType
+            if ((rootProject.ext.repoType).equals(&quot;remote&quot;)) { //发布到远程仓库
+                snapshotRepository(url: snapshotRepositoryUrl) {
+            def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+        if (propFile.canRead()) {
+            def Properties props = new Properties()
+            props.load(new FileInputStream(propFile))
+        if (props != null&amp;&amp;                                    props.containsKey(&apos;repositoryUserName&apos;) &amp;&amp;                                 props.containsKey(&apos;repositoryPassword&apos;)) {
+                def repositoryUserName = props[&apos;repositoryUserName&apos;]
+                def repositoryPassword = props[&apos;repositoryPassword&apos;]
+                authentication(userName: repositoryUserName, password: repositoryPassword)
+                println &apos;上传到远程仓库&apos;
+            } else {
+                println &apos;sorry，你没有上传aar包的权限&apos;
+            }
+        } else {
+            println &apos;sorry，你没有上传aar包的权限&apos;
+        }
+    }
+
+    repository(url: releaseRepositoryUrl) {
+        def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+        if (propFile.canRead()) {
+            def Properties props = new Properties()
+            props.load(new FileInputStream(propFile))
+
+            if (props != null &amp;&amp; props.containsKey(&apos;repositoryUserName&apos;) &amp;&amp; props.containsKey(&apos;repositoryPassword&apos;)) {
+                def repositoryUserName = props[&apos;repositoryUserName&apos;]
+                def repositoryPassword = props[&apos;repositoryPassword&apos;]
+                authentication(userName: repositoryUserName, password: repositoryPassword)
+                println &apos;上传到远程仓库&apos;
+            } else {
+                println &apos;sorry，你没有上传aar包的权限&apos;
+            }
+        } else {
+            println &apos;sorry，你没有上传aar包的权限&apos;
+        }
+            }
+        } else {//发布到本地仓库
+            def localRepositoryUrl
+            def File propFile = new File(&apos;../mavenAccount.properties&apos;)
+            if (propFile.canRead()) {
+            def Properties props = new Properties()
+            props.load(new FileInputStream(propFile))
+            if (props != null &amp;&amp; props.containsKey(&apos;localRepositoryUrl&apos;)) {
+                localRepositoryUrl = props[&apos;localRepositoryUrl&apos;]
+                snapshotRepository(url: localRepositoryUrl)
+                repository(url: localRepositoryUrl)
+                println &apos;上传到本地仓库&apos;
+            } else {
+                println &apos;sorry，本地仓库路径不存在&apos;
+            }
+            } else {
+            println &apos;sorry，本地仓库路径不存在&apos;
+            }
+            }
+        }
+    }
+}
+
+artifacts {
+       archives androidSourcesJar
+       archives androidJavadocsJar
+}
+</code></pre></li>
+</ul>
+</li>
+<li><p>子模块中相关配置：在子模块的build.gradle文件中添加：</p>
+<pre><code>group repositoryGroup
+//version &apos;0.0.1&apos;
+version &apos;0.0.1-SNAPSHOT&apos; //表示测试版，正式发版时去掉“-SNAPSHOT”
+//打成aar格式
+apply from: &apos;../release-as-aar.gradle&apos; //引用上传插件
+//打成jar格式
+//apply from: &apos;../release-as-jar.gradle&apos;
+</code></pre></li>
+</ul>
+<h3 id="打包上传"><a href="#打包上传" class="headerlink" title="打包上传"></a>打包上传</h3><ul>
+<li><p>编译通过后，打开android studio自带的终端，进入相应的module目录下，输入：</p>
+<pre><code>gradle uploadArchives
+</code></pre></li>
+</ul>
+<h3 id="主项目引用"><a href="#主项目引用" class="headerlink" title="主项目引用"></a>主项目引用</h3><ul>
+<li><p>在根目录的build.gradle文件中添加如下配置：</p>
+<pre><code>maven {
+  url &apos;http://maven.jianlc.com:8081/nexus/content/groups/public/&apos;
+   } 
+</code></pre></li>
+<li><p>在项目的build.gradle文件中添加如下引用：</p>
+<pre><code>debugCompile &apos;groupId:lib-name:version-SNAPSHOT&apos;
+releaseCompile &apos;groupId:lib-name:version&apos;
+</code></pre></li>
+</ul>
 
           
         
