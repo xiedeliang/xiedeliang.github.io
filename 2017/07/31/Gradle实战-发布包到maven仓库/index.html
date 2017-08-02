@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/31/Gradle实战-发布包到maven仓库/index.html">
 <meta property="og:site_name" content="Nope_1">
 <meta property="og:description" content="Maven简介参考链接：http://xiedeliang.com/2017/07/30/Maven简介AAR简介AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。Jar简介JAR 文件格式以流行的">
-<meta property="og:updated_time" content="2017-07-31T09:18:20.000Z">
+<meta property="og:updated_time" content="2017-08-02T09:53:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle实战:发布包到maven仓库">
 <meta name="twitter:description" content="Maven简介参考链接：http://xiedeliang.com/2017/07/30/Maven简介AAR简介AAR文件是Google为Android开发所设计的一种library格式，全名为Android Archive Library，与Java Jar Library不同的是，aar除了java code之外还包含资源文件，即xml文件、图片、文字等。Jar简介JAR 文件格式以流行的">
@@ -573,12 +573,12 @@ apply from: &apos;../release-as-aar.gradle&apos; //引用上传插件
 <h3 id="主项目引用"><a href="#主项目引用" class="headerlink" title="主项目引用"></a>主项目引用</h3><ul>
 <li><p>在根目录的build.gradle文件中添加如下配置：</p>
 <pre><code>maven {
-  url &apos;http://maven.jianlc.com:8081/nexus/content/groups/public/&apos;
+  url &apos;http://maven.xxxx.xxxx:1111/nexus/content/groups/public/&apos;
    } 
 </code></pre></li>
 <li><p>在项目的build.gradle文件中添加如下引用：</p>
 <pre><code>debugCompile &apos;groupId:lib-name:version-SNAPSHOT&apos;
-releaseCompile &apos;groupId:lib-name:version&apos;
+releaseCompile &apos;groupId:lib-name:version&apos;
 </code></pre></li>
 </ul>
 
