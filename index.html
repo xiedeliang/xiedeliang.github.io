@@ -290,6 +290,176 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/10/Maven仓库简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope_1">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/10/Maven仓库简介/" itemprop="url">
+                  Maven仓库简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T14:05:10+08:00">
+                2017-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Maven仓库"><a href="#Maven仓库" class="headerlink" title="Maven仓库"></a>Maven仓库</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="maven的仓库只有两大类："><a href="#maven的仓库只有两大类：" class="headerlink" title="maven的仓库只有两大类："></a>maven的仓库只有两大类：</h4><p>1.本地仓库</p>
+<ul>
+<li><p>本地仓库，顾名思义，就是Maven在本地存储构件的地方。</p>
+</li>
+<li><p>maven的本地仓库，在安装maven后并不会创建，它是在第一次执行maven命令的时候才被创建。</p>
+</li>
+<li><p>maven本地仓库的默认位置：无论是Windows还是Linux，在用户的目录下都有一个.m2/repository/的仓库目录，这就是Maven仓库的默认位置。</p>
+</li>
+<li><p>更改maven默认的本地仓库的位置：这里要引入一个新的元素：localRepository，它是存在于maven的settings.xml文件中。</p>
+<ul>
+<li><p>更改配置用户范围的本地仓库：先在/.m2/目录下创建settings.xml文件，然后在~/.m2/settings.xml，设置localRepository元素的值为想要的仓库地址。</p>
+<pre><code>&lt;settings&gt;
+    &lt;localRepository&gt;D:\maven_new_repository&lt;/localRepository&gt;
+&lt;/settings&gt;
+</code></pre><p>  修改后的本地仓库地址就更换成了“D:\maven_new_repository”，此时的本地仓库是属于用户范围的。</p>
+</li>
+<li><p>更改配置全局范围的本地仓库：在M2_HOME/conf/settings.xml中更改配置，更改配置的方法如下：</p>
+<pre><code>&lt;settings&gt;
+    &lt;localRepository&gt;D:\maven_new_repository&lt;/localRepository&gt;
+&lt;/settings&gt;
+</code></pre><p>  此时更改后，所有的用户都会受到影响，而且如果maven进行升级，那么所有的配置都会被清除，所以要提前复制和备份M2_HOME/conf/settings.xml文件<br>故：一般情况下不推荐配置全局的settings.xml</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>2.远程仓库</p>
+<ul>
+<li><p>中央仓库</p>
+<p>  中央仓库是默认的远程仓库，maven在安装的时候，自带的就是中央仓库的配置（没用到，没仔细研究）</p>
+</li>
+<li><p>私服</p>
+<p>  私服是一种特殊的远程仓库，它是架设在局域网内的仓库服务，私服代理广域网上的远程仓库，供局域网内的Maven用户使用。当Maven需要下载构件的时候，它从私服请求，如果私服上不存在该构件，则从外部的远程仓库下载，缓存在私服上之后，再为Maven的下载请求提供服务。我们还可以把一些无法从外部仓库下载到的构件上传到私服上。</p>
+<p>  Maven私服的特性</p>
+<ul>
+<li>1.节省自己的外网带宽：减少重复请求造成的外网带宽消耗。</li>
+<li>2.加速Maven构件：如果项目配置了很多外部远程仓库的时候，构建速度就会大大降低。</li>
+<li>3.部署第三方构件：有些构件无法从外部仓库获得的时候，我们可以把这些构件部署到内部仓库(私服)中，供内部maven项目使用。</li>
+<li>4.提高稳定性，增强控制：Internet不稳定的时候，maven构建也会变的不稳定，一些私服软件还提供了其他的功能。</li>
+<li><p>5.降低中央仓库的负荷：maven中央仓库被请求的数量是巨大的，配置私服也可以大大降低中央仓库的压力。</p>
+<p>主流的maven私服：</p>
+</li>
+<li><p>1.Apache的Archiva</p>
+</li>
+<li>2.JFrog的Artifactory</li>
+<li>3.Sonatype的Nexus（目前在使用的）</li>
+</ul>
+</li>
+<li><p>其它公共库</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/31/Gradle实战-发布包到maven仓库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1750,153 +1920,6 @@ view.animate().scaleX(1).setDuration(500).setListener(animatorListener).start();
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/08/Android-常见内存泄漏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谢德良">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nope_1">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/08/Android-常见内存泄漏/" itemprop="url">
-                  Android 常见内存泄漏
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-08T19:35:08+08:00">
-                2016-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AAA/" itemprop="url" rel="index">
-                    <span itemprop="name">AAA</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##常见内存泄漏点</p>
-<h3 id="一、-Handler-内部类长时间挂在线程中"><a href="#一、-Handler-内部类长时间挂在线程中" class="headerlink" title="一、 Handler 内部类长时间挂在线程中"></a>一、 Handler 内部类长时间挂在线程中</h3><h3 id="二、-WebView不适当的使用"><a href="#二、-WebView不适当的使用" class="headerlink" title="二、 WebView不适当的使用"></a>二、 WebView不适当的使用</h3><p>####1.CookieSyncManager</p>
-<p>CookieSyncManager是个全局静态单例，操作系统内部使用了App的Activity作为Context构造了它的实例。我们应该在App启动的时候，抢先帮系统创建这个单例，而且要用applicationContext，让它不会引用到Activity</p>
-<p>####2.WebView</p>
-<p>####3.WebViewClassic </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1946,7 +1969,7 @@ view.animate().scaleX(1).setDuration(500).setListener(animatorListener).start();
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1968,7 +1991,7 @@ view.animate().scaleX(1).setDuration(500).setListener(animatorListener).start();
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
