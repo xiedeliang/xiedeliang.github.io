@@ -32,7 +32,7 @@
 
   
   
-  <link href="/hexoBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -66,9 +66,9 @@
 
 
 
-<link href="/hexoBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/hexoBlog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="image，网络图片，hexo资源," />
@@ -80,7 +80,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/hexoBlog/favicon.ico?v=5.1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
 
 
 
@@ -90,22 +90,22 @@
 <meta name="description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo博客图片资源引用">
-<meta property="og:url" content="http://xiedeliang.com/hexoBlog/2017/08/14/hexo博客图片资源引用/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/08/14/hexo博客图片资源引用/index.html">
 <meta property="og:site_name" content="Nope">
 <meta property="og:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
-<meta property="og:image" content="http://xiedeliang.com/hexoBlog/hexoBlog/hexoBlog/hexoBlog/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
+<meta property="og:image" content="http://yoursite.com/hexoBlog/hexoBlog/hexoBlog/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
 <meta property="og:updated_time" content="2017-10-17T08:13:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo博客图片资源引用">
 <meta name="twitter:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
-<meta name="twitter:image" content="http://xiedeliang.com/hexoBlog/hexoBlog/hexoBlog/hexoBlog/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
+<meta name="twitter:image" content="http://yoursite.com/hexoBlog/hexoBlog/hexoBlog/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
 
 
 
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/hexoBlog/',
+    root: '/',
     scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://xiedeliang.com/hexoBlog/2017/08/14/hexo博客图片资源引用/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/14/hexo博客图片资源引用/"/>
 
 
 
@@ -166,7 +166,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/hexoBlog/"  class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Nope</span>
         <span class="logo-line-after"><i></i></span>
@@ -194,7 +194,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/hexoBlog/" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -204,7 +204,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/hexoBlog/categories" rel="section">
+          <a href="/categories" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -214,7 +214,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/hexoBlog/about" rel="section">
+          <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -224,7 +224,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/hexoBlog/archives" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -234,7 +234,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/hexoBlog/tags" rel="section">
+          <a href="/tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -244,7 +244,7 @@
       
         
         <li class="menu-item menu-item-sitemap">
-          <a href="/hexoBlog/sitemap.xml" rel="section">
+          <a href="/sitemap.xml" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
             
@@ -254,7 +254,7 @@
       
         
         <li class="menu-item menu-item-commonweal">
-          <a href="/hexoBlog/404.html" rel="section">
+          <a href="/404.html" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
             
@@ -291,12 +291,12 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://xiedeliang.com/hexoBlog/hexoBlog/2017/08/14/hexo博客图片资源引用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/14/hexo博客图片资源引用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="谢德良">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/hexoBlog/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -402,7 +402,7 @@
       
         <div class="post-tags">
           
-            <a href="/hexoBlog/tags/image，网络图片，hexo资源/" rel="tag"># image，网络图片，hexo资源</a>
+            <a href="/tags/image，网络图片，hexo资源/" rel="tag"># image，网络图片，hexo资源</a>
           
         </div>
       
@@ -415,7 +415,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexoBlog/2017/08/11/Maven私服自定义仓库及权限管理/" rel="next" title="Maven私服自定义仓库及权限管理">
+              <a href="/2017/08/11/Maven私服自定义仓库及权限管理/" rel="next" title="Maven私服自定义仓库及权限管理">
                 <i class="fa fa-chevron-left"></i> Maven私服自定义仓库及权限管理
               </a>
             
@@ -425,7 +425,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/hexoBlog/2017/09/01/Genymotion安装使用/" rel="prev" title="Genymotion安装使用">
+              <a href="/2017/09/01/Genymotion安装使用/" rel="prev" title="Genymotion安装使用">
                 Genymotion安装使用 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -487,7 +487,7 @@
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/hexoBlog/images/avatar.png"
+               src="/images/avatar.png"
                alt="谢德良" />
           <p class="site-author-name" itemprop="name">谢德良</p>
            
@@ -498,7 +498,7 @@
 
           
             <div class="site-state-item site-state-posts">
-              <a href="/hexoBlog/archives">
+              <a href="/archives">
                 <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
@@ -520,7 +520,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="/hexoBlog/tags/index.html">
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -636,53 +636,53 @@
 
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/hexoBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/hexoBlog/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/hexoBlog/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/hexoBlog/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/hexoBlog/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/hexoBlog/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/hexoBlog/js/src/post-details.js?v=5.1.0"></script>
-
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/hexoBlog/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
