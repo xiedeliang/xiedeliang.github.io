@@ -87,16 +87,18 @@
 
 
 
-<meta name="description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，">
+<meta name="description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo博客图片资源引用">
 <meta property="og:url" content="http://yoursite.com/2017/08/14/hexo博客图片资源引用/index.html">
 <meta property="og:site_name" content="Nope">
-<meta property="og:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，">
-<meta property="og:updated_time" content="2017-08-14T09:03:07.000Z">
+<meta property="og:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
+<meta property="og:image" content="http://yoursite.com/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
+<meta property="og:updated_time" content="2017-10-17T08:13:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo博客图片资源引用">
-<meta name="twitter:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，">
+<meta name="twitter:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
 
 
 
@@ -361,7 +363,16 @@
       
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">CodeFalling/hexo-asset-image</a>插件来加载本地图片</p>
+<h4 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h4><p>1、首先确认_config.yml 中有 post_asset_folder:true。</p>
+<pre><code>Hexo 提供了一种更方便管理 Asset 的设定：post_asset_folder
+当您设置post_asset_folder为true参数后，在建立文件时，Hexo会自动建立一个与文章同名的文件夹，您可以把与该文章相关的所有资源都放到那个文件夹，如此一来，您便可以更方便的使用资源。
+</code></pre><p>2、在hexo的目录下执行 npm install <a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external">https://github.com/CodeFalling/hexo-asset-image</a> –save（需要等待一段时间）。</p>
+<p>3、完成安装后用hexo新建文章的时候会发现_posts目录下面会多出一个和文章名字一样的文件夹。图片就可以放在文件夹下面。结构如下：</p>
+<p><img src="/2017/08/14/hexo博客图片资源引用/image_quote_01.png" alt="image_quote_01"></p>
+<p>4、把需要引用的图片放到对应的文件夹中，使用MacDown 引用图片的语法即可引用，其中[]里面不写文字则没有图片标题，具体如下：</p>
+<pre><code>![image_quote_01](hexo博客图片资源引用/image_quote_01.png)
+</code></pre><p>5、正常上传已经编辑好的带图片的博客，查看一下是否成功。</p>
 
       
     </div>
@@ -413,6 +424,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/01/Genymotion安装使用/" rel="prev" title="Genymotion安装使用">
+                Genymotion安装使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -484,7 +499,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -541,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法："><span class="nav-number">1.0.1.</span> <span class="nav-text">使用方法：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
