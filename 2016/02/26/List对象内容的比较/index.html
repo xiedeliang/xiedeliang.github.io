@@ -1,0 +1,739 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="List,数组比较," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？2.1 “==”    Java中的”==”是用来比较两个对象的地址是否一样，与普通的基本类型不一样，在基本类型中（如int）比较的是对应的值,在封装类中使用场景不多。
+2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="List对象内容的比较">
+<meta property="og:url" content="http://yoursite.com/2016/02/26/List对象内容的比较/index.html">
+<meta property="og:site_name" content="Nope">
+<meta property="og:description" content="1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？2.1 “==”    Java中的”==”是用来比较两个对象的地址是否一样，与普通的基本类型不一样，在基本类型中（如int）比较的是对应的值,在封装类中使用场景不多。
+2.">
+<meta property="og:image" content="http://i.imgur.com/GFbrVT4.png">
+<meta property="og:image" content="http://i.imgur.com/DJcwLHO.png">
+<meta property="og:image" content="http://i.imgur.com/qkcnwt0.png">
+<meta property="og:updated_time" content="2017-10-18T09:02:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="List对象内容的比较">
+<meta name="twitter:description" content="1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？2.1 “==”    Java中的”==”是用来比较两个对象的地址是否一样，与普通的基本类型不一样，在基本类型中（如int）比较的是对应的值,在封装类中使用场景不多。
+2.">
+<meta name="twitter:image" content="http://i.imgur.com/GFbrVT4.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/02/26/List对象内容的比较/"/>
+
+
+
+
+
+  <title> List对象内容的比较 | Nope </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The harder the more fortunate...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/26/List对象内容的比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                List对象内容的比较
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-26T19:55:17+08:00">
+                2016-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？"><a href="#1-我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？" class="headerlink" title="1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？"></a>1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？</h3><h3 id="2-大家都知道对象的比较有两种方式-”-”和”equals”-那么他们之间有什么区别么？在数组中又应该注意什么呢？"><a href="#2-大家都知道对象的比较有两种方式-”-”和”equals”-那么他们之间有什么区别么？在数组中又应该注意什么呢？" class="headerlink" title="2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？"></a>2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？</h3><p>2.1 “==”<br>    Java中的”==”是用来比较两个对象的地址是否一样，与普通的基本类型不一样，在基本类型中（如int）比较的是对应的值,在封装类中使用场景不多。</p>
+<p>2.2 “equals”<br>Java中的”equals”是比较两个对象的内容是否相同，由于所有的类都是继承java.lang.Object类的，所以如果没有对该方法进行覆盖的话，调用的仍然是Object类中的方法。而Object中的equal方法返回的却是==的判断，因此，如果在没有进行该方法的覆盖后，调用该方法是没有任何意义的。在java面向对象的处理中我们一般在javaBean中都要选择重写equals方法，比较如下：</p>
+<p><img src="http://i.imgur.com/GFbrVT4.png" alt=""></p>
+<p>对应的equals方法如下：</p>
+<p><img src="http://i.imgur.com/DJcwLHO.png" alt=""></p>
+<p>我们在去掉bean中重写的equals方法在看下运行结果：</p>
+<p><img src="http://i.imgur.com/qkcnwt0.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>基本数据类型“==”比较的是内容，封装类比较的是地址。</p>
+<p>equals 比较的是两个对象的内容，但需要重写其equals和hasCode方法，否则比较的是基类中“==”的比较结果。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/List/" rel="tag"># List</a>
+          
+            <a href="/tags/数组比较/" rel="tag"># 数组比较</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/22/Hexo-常用命令的使用/" rel="next" title="Hexo 常用命令的使用">
+                <i class="fa fa-chevron-left"></i> Hexo 常用命令的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/08/Android-常见内存泄漏/" rel="prev" title="Android 常见内存泄漏">
+                Android 常见内存泄漏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="谢德良" />
+          <p class="site-author-name" itemprop="name">谢德良</p>
+           
+              <p class="site-description motion-element" itemprop="description">xiedeiang.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？"><span class="nav-number">1.</span> <span class="nav-text">1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-大家都知道对象的比较有两种方式-”-”和”equals”-那么他们之间有什么区别么？在数组中又应该注意什么呢？"><span class="nav-number">2.</span> <span class="nav-text">2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结:</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢德良</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

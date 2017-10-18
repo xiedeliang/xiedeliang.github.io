@@ -43,9 +43,6 @@
   
 
   
-    
-    
-  
 
   
 
@@ -55,10 +52,6 @@
 
   
 
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -202,22 +195,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -260,6 +253,155 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/09/Android内存分析工具MAT的使用（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/09/Android内存分析工具MAT的使用（二）/" itemprop="url">
+                  Android内存分析工具MAT的使用（二）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-09T17:07:57+08:00">
+                2016-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          持续更新。。。
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/09/Android内存分析工具MAT的使用（二）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -320,6 +462,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -347,41 +511,18 @@
       
         
           
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li><p>内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2></li>
-<li><p>DDMS 可以将当前的内存 Dump成一个hprof格式的文件，MAT 读取这个文件后会给出方便阅读的信息，配合它的查找，对比功能，就可以定位内存泄漏的原因。</p>
-</li>
-<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" title="下载地址" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
-</ul>
-<p>1.hprof文件的获取</p>
-<ul>
-<li><p>打开Android Device Monitor,然后按图示选择 </p>
-<p>  <img src="http://i.imgur.com/KDF4UVa.png" alt=""><br>  <img src="http://i.imgur.com/2mvxzLU.png" alt=""></p>
-</li>
-<li><p>转换 hprof文件</p>
-<p> DDMS Dump 出的文件要经过转换才能被 MAT识别，Android SDK提供了这个工具 hprof-conv (位于 sdk/tools下，eclipse导出的无需转换)</p>
-<p> 打开命令提示符（CMD）切换到tools目录下，执行hprof-conv aaa.hprof bbb.hprof即可完成转换，aaa.hprof 代表转换前的原文件，bbb.hprof代表转换后的。</p>
-</li>
-<li><p>打开 hprof文件</p>
-<p>  用 MAT打开转换后的 hprof文件，如下图：</p>
-<p>  <img src="http://i.imgur.com/HWemtiB.png" alt=""></p>
-<p>  到此MAT工具的使用就简单的介绍完了，当然了，重点是分析.hprof文件，这个在下一节介绍。</p>
-</li>
-</ul>
-<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><ul>
-<li>MAT可通过分析.hprof文件来确定内存泄漏情况</li>
-<li>MAT下载地址：<a href="https://www.eclipse.org/mat/" target="_blank" rel="external">https://www.eclipse.org/mat/</a></li>
-<li>通过Android Device Monitor获取.hprof文件并用sdk/tools下的hprof-conv.exe工具进行转换</li>
-<li>通过MAT来分析.hprof文件查找内存泄漏情况</li>
-</ul>
-<h1 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h1><ul>
-<li><p>Android Studio新版本已经支持直接导出.hprof文件，如下图：</p>
-<p>  <img src="http://i.imgur.com/8O8aGQS.jpg" alt=""></p>
-</li>
-</ul>
-<h1 id="友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633"><a href="#友情链接：http-blog-csdn-net-guolin-blog-article-details-42238633" class="headerlink" title="友情链接：http://blog.csdn.net/guolin_blog/article/details/42238633"></a>友情链接：<a href="http://blog.csdn.net/guolin_blog/article/details/42238633" target="_blank" rel="external">http://blog.csdn.net/guolin_blog/article/details/42238633</a></h1>
-          
+          前言
+内存的检测与分析的方法和工具有很多，比如Lint、PMD、Emmagee、DDMS、Android Monitor、手机中开发者选项的设置等等，在这里只简单介绍一下MAT(Memory Analysis Tools)的使用。当然了其他的工具后期也会介绍。
+正文
+DDMS 可以将当前的内存 Du
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/09/Android内存分析工具MAT的使用（一）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -485,8 +626,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AAA/" itemprop="url" rel="index">
-                    <span itemprop="name">AAA</span>
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
                   </a>
                 </span>
 
@@ -522,13 +663,166 @@
       
         
           
-            <p>##常见内存泄漏点</p>
-<h3 id="一、-Handler-内部类长时间挂在线程中"><a href="#一、-Handler-内部类长时间挂在线程中" class="headerlink" title="一、 Handler 内部类长时间挂在线程中"></a>一、 Handler 内部类长时间挂在线程中</h3><h3 id="二、-WebView不适当的使用"><a href="#二、-WebView不适当的使用" class="headerlink" title="二、 WebView不适当的使用"></a>二、 WebView不适当的使用</h3><p>####1.CookieSyncManager</p>
-<p>CookieSyncManager是个全局静态单例，操作系统内部使用了App的Activity作为Context构造了它的实例。我们应该在App启动的时候，抢先帮系统创建这个单例，而且要用applicationContext，让它不会引用到Activity</p>
-<p>####2.WebView</p>
-<p>####3.WebViewClassic </p>
+          ##常见内存泄漏点
+一、 Handler 内部类长时间挂在线程中二、 WebView不适当的使用####1.CookieSyncManager
+CookieSyncManager是个全局静态单例，操作系统内部使用了App的Activity作为Context构造了它的实例。我们应该在App启动的时候，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/03/08/Android-常见内存泄漏/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/02/26/List对象内容的比较/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/02/26/List对象内容的比较/" itemprop="url">
+                  List对象内容的比较
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-26T19:55:17+08:00">
+                2016-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 我们在开发的过程中总会遇到两个对象的比较，或者两个数组的比较，对象还好说，比较起来比较简单，但数组呢？2. 大家都知道对象的比较有两种方式:”==”和”equals”,那么他们之间有什么区别么？在数组中又应该注意什么呢？2.1 “==”    Java中的”==”是用来比较两个对象的地址是否一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/02/26/List对象内容的比较/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -620,6 +914,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -647,30 +963,19 @@
       
         
           
-            <p>1.安装</p>
-<pre><code>* 利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）
+          1.安装
+* 利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）
 * npm install -g hexo
-</code></pre><p>2.创建hexo文件夹</p>
-<pre><code>* 安装完成后，在你喜爱的文件夹下（如H:\hexo），执行以下指令(在H:\hexo内点击鼠标右键，选择Git bash)，Hexo 即会自动在目标文件夹建立网站所需要的所有文件。
-* hexo init
-</code></pre><p>3.安装依赖包</p>
-<pre><code>* npm install
-</code></pre><p>4.本地查看</p>
-<pre><code>* 现在我们已经搭建起本地的hexo博客了，执行以下命令(在H:\hexo)，然后到浏览器输入localhost:4000看看
-* hexo generate
-* hexo server
-</code></pre><p>5.保存修改的文件及部署到gitHub上</p>
-<pre><code>* hexo generate
-* hexo deploy
-</code></pre><p>6.新建博客</p>
-<pre><code>* hexo new &quot;AAAA&quot;
-* 在hexo\source\_posts中打开文件
-* hexo server，访问localhost:4000预览效果。（退出server用Ctrl+c）
-* hexo deploy，同步到github。访问网站看看效果。
-</code></pre><p>7.异常处理</p>
-<pre><code>* npm install hexo-deployer-git --save 
-</code></pre>
-          
+2.创建hexo文件夹
+* 安装完成后，在你喜爱的文件夹下（如H:\hexo），执行以下指令(在H:\hexo内点击鼠标右键，选择Git bash)，Hexo 即会
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/02/22/Hexo-常用命令的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -752,7 +1057,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -762,10 +1067,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -774,7 +1079,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

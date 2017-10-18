@@ -43,9 +43,6 @@
   
 
   
-    
-    
-  
 
   
 
@@ -55,10 +52,6 @@
 
   
 
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -71,7 +64,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="【内存泄漏】【性能优化】," />
+  <meta name="keywords" content="内存泄漏,性能优化," />
 
 
 
@@ -97,7 +90,7 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
 <meta property="og:description" content="##常见内存泄漏点
 一、 Handler 内部类长时间挂在线程中二、 WebView不适当的使用####1.CookieSyncManager
 CookieSyncManager是个全局静态单例，操作系统内部使用了App的Activity作为Context构造了它的实例。我们应该在App启动的时候，抢先帮系统创建这个单例，而且要用applicationContext，让它不会引用到Activity">
-<meta property="og:updated_time" content="2017-08-14T09:09:27.000Z">
+<meta property="og:updated_time" content="2017-10-18T08:52:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 常见内存泄漏">
 <meta name="twitter:description" content="##常见内存泄漏点
@@ -207,22 +200,22 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -334,8 +327,8 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AAA/" itemprop="url" rel="index">
-                    <span itemprop="name">AAA</span>
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
                   </a>
                 </span>
 
@@ -403,7 +396,9 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
       
         <div class="post-tags">
           
-            <a href="/tags/【内存泄漏】【性能优化】/" rel="tag"># 【内存泄漏】【性能优化】</a>
+            <a href="/tags/内存泄漏/" rel="tag"># 内存泄漏</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -416,8 +411,8 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/22/Hexo-常用命令的使用/" rel="next" title="Hexo 常用命令的使用">
-                <i class="fa fa-chevron-left"></i> Hexo 常用命令的使用
+              <a href="/2016/02/26/List对象内容的比较/" rel="next" title="List对象内容的比较">
+                <i class="fa fa-chevron-left"></i> List对象内容的比较
               </a>
             
           </div>
@@ -500,7 +495,7 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -510,10 +505,10 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
             
             
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -522,7 +517,7 @@ CookieSyncManager是个全局静态单例，操作系统内部使用了App的Act
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

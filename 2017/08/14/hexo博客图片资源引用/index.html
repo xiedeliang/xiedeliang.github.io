@@ -43,9 +43,6 @@
   
 
   
-    
-    
-  
 
   
 
@@ -55,10 +52,6 @@
 
   
 
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
@@ -71,7 +64,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="image，网络图片，hexo资源," />
+  <meta name="keywords" content="网络图片,hexo资源," />
 
 
 
@@ -94,7 +87,7 @@
 <meta property="og:site_name" content="Nope">
 <meta property="og:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
 <meta property="og:image" content="http://yoursite.com/2017/08/14/hexo博客图片资源引用/image_quote_01.png">
-<meta property="og:updated_time" content="2017-10-17T08:13:17.000Z">
+<meta property="og:updated_time" content="2017-10-18T09:03:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo博客图片资源引用">
 <meta name="twitter:description" content="简介我们在编写博客时通常会遇到图片资源的问题，Windows下的Macdown在引用图片资源时会自动上传到网上，实际上引用的就是网络图片资源了，但是Mac版本的就需要依赖一些插件，或者可以直接引用网络资源，比较好的方法是将图片上传到七牛上，然后在引用对应的网络图片，但是当有大量图片的时候就显得比较麻烦了，所以本文着重介绍一种简单的方法实现图片资源引用，即 CodeFalling/hexo-asse">
@@ -203,22 +196,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -318,6 +311,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -382,7 +397,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/image，网络图片，hexo资源/" rel="tag"># image，网络图片，hexo资源</a>
+            <a href="/tags/网络图片/" rel="tag"># 网络图片</a>
+          
+            <a href="/tags/hexo资源/" rel="tag"># hexo资源</a>
           
         </div>
       
@@ -475,7 +492,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -485,10 +502,10 @@
             
             
             <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
-              
+              </a>
             </div>
           
 
@@ -497,7 +514,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
