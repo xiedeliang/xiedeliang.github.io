@@ -1,0 +1,867 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="屏幕适配,全面屏,刘海屏," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="简介屏幕适配主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。
+全面屏适配什么是全面屏手机？该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-屏幕适配浅析">
+<meta property="og:url" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/index.html">
+<meta property="og:site_name" content="Nope">
+<meta property="og:description" content="简介屏幕适配主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。
+全面屏适配什么是全面屏手机？该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_002.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_003.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_004.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_005.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_006.jpeg">
+<meta property="og:updated_time" content="2018-04-26T08:58:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android-屏幕适配浅析">
+<meta name="twitter:description" content="简介屏幕适配主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。
+全面屏适配什么是全面屏手机？该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/"/>
+
+
+
+
+
+  <title> Android-屏幕适配浅析 | Nope </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Nope</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">The harder the more fortunate...</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谢德良">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nope">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android-屏幕适配浅析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T16:45:45+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>屏幕适配</code>主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。</p>
+<h2 id="全面屏适配"><a href="#全面屏适配" class="headerlink" title="全面屏适配"></a>全面屏适配</h2><h4 id="什么是全面屏手机？"><a href="#什么是全面屏手机？" class="headerlink" title="什么是全面屏手机？"></a>什么是全面屏手机？</h4><p>该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比，同时能够满足当前的日常需求，如摄像头，听筒、指纹解锁等。但随着iPhone X的出现，有越来越多的人都在争论“全面屏”，认为有刘海就谈不上无边框，甚至大家开始疑问全面屏的真正含义。</p>
+<p>根据目前的技术水平和业内大部分人的说法，认为目前的全面屏手机要同时符合两个条件才能称为真正的全面屏：</p>
+<ul>
+<li>屏幕纵横比大于16:9</li>
+<li>屏占比大于80%</li>
+</ul>
+<p>例如在业内率先提出全面屏概念并完全去掉机身正面半顶部边框设计的的小米MIX，它的屏幕纵横比为17：9，今年小米推出的MIX 2屏幕纵横比为18:9。</p>
+<p>从人体工程学角度分析，18:9的比例更适合用户单手持握，更重要的是，全面屏的高屏占比可以给用户在游戏和视频观看上带来极致的视觉体验。然而，市面上很多厂商却因此偷换概念，认为手机配备18：9的比例屏幕就是全面屏，故在手机设计上只保留了18:9的比例，而边框依然宽大，这显然忽视了全面屏最本质的特征。</p>
+<p>目前，业内较为认可的全面屏手机主要有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">机型</th>
+<th style="text-align:left">屏幕纵横比</th>
+<th style="text-align:left">屏占比</th>
+<th style="text-align:left">上市时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LG G6</td>
+<td style="text-align:left">18:9</td>
+<td style="text-align:left">80%</td>
+<td style="text-align:left">2017年2月</td>
+</tr>
+<tr>
+<td style="text-align:center">三星S8</td>
+<td style="text-align:left">18.5:9</td>
+<td style="text-align:left">84.26%</td>
+<td style="text-align:left">2017年3月</td>
+</tr>
+<tr>
+<td style="text-align:center">Essential Phone</td>
+<td style="text-align:left">19:10</td>
+<td style="text-align:left">84.85%</td>
+<td style="text-align:left">2017年8月</td>
+</tr>
+<tr>
+<td style="text-align:center">小米MIX 2</td>
+<td style="text-align:left">18:9</td>
+<td style="text-align:left">84.02%</td>
+<td style="text-align:left">2017年9月</td>
+</tr>
+<tr>
+<td style="text-align:center">iPhone X</td>
+<td style="text-align:left">13：6</td>
+<td style="text-align:left">81.49%</td>
+<td style="text-align:left">2017年9月</td>
+</tr>
+</tbody>
+</table>
+<p>由于全面屏手机在追求更小的边框设计、更高的屏占比，这些变化导致了手机发生两种变化，即<font color="#dd0000">更大的屏幕纵横比</font>和<font color="#dd0000">虚拟导航键</font>，所以应从这两个方面进行适配。</p>
+<h4 id="屏占比适配"><a href="#屏占比适配" class="headerlink" title="屏占比适配"></a>屏占比适配</h4><p>声明Maximum Aspect Ratio</p>
+<p>随着大量的手机厂商将目光投向全面屏，为了顺应市场需求，谷歌向开发者提供了官方的Android全面屏适配指南。</p>
+<blockquote>
+<p>相关参考文档：<a href="https://android-developers.googleblog.com/2017/03/update-your-app-to-take-advantage-of.html" target="_blank" rel="external">谷歌官方全面屏适配指南</a></p>
+</blockquote>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png" alt=""></p>
+<ul>
+<li>（左）18.5：9设备上的最大纵横比设置为16：9的应用程序</li>
+<li>（右）18.5：9设备上最大纵横比设置为18.5：9以上的应用程序</li>
+</ul>
+<p>我们可以看到，左侧的应用程序上下都有黑边，并没有完全利用全面屏，针对这种情况我们做如下的适配：</p>
+<p><strong>1. 在AndroidManifest.xml中可做如下配置:</strong> </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data <span class="string">android:</span>name=<span class="string">"android.max_aspect"</span> <span class="string">android:</span>value=<span class="string">"ratio_float"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>其中ratio_float为纵横比，官方建议设为2.1或更大，因为目前市场上出现的全面屏手机屏幕纵横比最大的为三星的18.5:9=2.0556，但是如果以后要是出现纵横比更大的手机，设置值就要更大。</p>
+<p><strong>2.若没有声明该属性，而且</strong></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">android:</span>resizeableActivity</div></pre></td></tr></table></figure>
+<p>也为false的话，则应用支持的应用的最大纵横比的默认值为1.86，小于2.0556，即无法支持全面屏，屏幕的上下就会留有黑框，如上图左。</p>
+<p><strong>怎样防止图片变形</strong></p>
+<p>当使用layout布局实现界面类APP时，容易出现图片被拉伸的情况，如打开淘宝的页面就会变成如下所示：</p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_002.png" alt=""></p>
+<p>对于这种情况，解决的办法是：</p>
+<ul>
+<li>使用相对布局设计界面</li>
+<li>为对应的分辨率提供相应布局、图片等资源（drawable-xxhdpi-2016x1080、drawable-long 等）</li>
+<li>使用颜色填充布局、.9图片填充背景</li>
+</ul>
+<h4 id="虚拟导航键适配"><a href="#虚拟导航键适配" class="headerlink" title="虚拟导航键适配"></a>虚拟导航键适配</h4><p>为了保证虚拟键和App的界面风格一致，应注意设置虚拟键颜色与主题协调，所以在进行虚拟键的设置时，要注意以下几点：</p>
+<ol>
+<li>使用沉浸式虚拟键时，用原生标准方法设置虚拟按键的背景颜色；</li>
+<li>在夜间模式和主题切换的时候，重新设置一下虚拟按键背景颜色；</li>
+<li>看图界面使用全屏布局，并设置半透明虚拟按键背景。</li>
+</ol>
+<p><strong>具体操作如下:</strong></p>
+<p><strong>方法1：在主题中添加以下设置项：</strong></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">item</span> <span class="built_in">name</span>=<span class="string">"android:navigationBarColor"</span>&gt;要设置的颜色值&lt;/<span class="built_in">item</span>&gt;</div></pre></td></tr></table></figure>
+<p><strong>方法2：通过使用 Window 类的 setNavigationBarColor API 进行控制。</strong></p>
+<p>注意，要想设置虚拟按键背景色生效，必须要设置FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS 并且不能设置 FLAG_TRANSLUCENT_NAVIGATION，即要先执行：</p>
+<p>eg:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">getWindow</span>()<span class="selector-class">.setNavigationBarColor</span>(Color.TRANSPARENT); <span class="comment">//设为透明</span></div><div class="line"><span class="selector-tag">getWindow</span>()<span class="selector-class">.setNavigationBarColor</span>(Color.BLACK); <span class="comment">//设为不透明</span></div><div class="line"><span class="selector-tag">getWindow</span>()<span class="selector-class">.setNavigationBarColor</span>(<span class="number">0</span>x80000000); <span class="comment">//设为半透明</span></div></pre></td></tr></table></figure>
+<p><strong>修改虚拟键的样式</strong></p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_003.png" alt=""></p>
+<p>调用以下接口即可 window.setNavigationBarColor (int color)。在调用该接口时，还需要设置一些flag，详见该接口的注释说明（即下文）：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="markdown">/**</span></span></div><div class="line"><span class="bullet">* </span>Sets the<span class="markdown"> color of </span>the<span class="markdown"> navigation bar to &#123;@param color&#125;.</span></div><div class="line"><span class="bullet">*</span></div><div class="line"><span class="bullet">* </span>For this to take effect,</div><div class="line"><span class="bullet">* </span>the<span class="markdown"> window must be drawing </span>the<span class="markdown"> system bar backgrounds with</span></div><div class="line"><span class="bullet">* </span>&#123;@link android.view.WindowManager.LayoutParams#FLAG<span class="emphasis">_DRAWS_</span>SYSTEM<span class="emphasis">_BAR_</span>BACKGROUNDS&#125; and</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.WindowManager.LayoutParams#FLAG<span class="emphasis">_TRANSLUCENT_</span>NAVIGATION&#125; must not be set.</div><div class="line"><span class="bullet">*</span></div><div class="line"><span class="bullet">* </span>If &#123;@param color&#125; is not opaque, consider setting</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.View#SYSTEM<span class="emphasis">_UI_</span>FLAG<span class="emphasis">_LAYOUT_</span>STABLE&#125; and</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.View#SYSTEM<span class="emphasis">_UI_</span>FLAG<span class="emphasis">_LAYOUT_</span>HIDE_NAVIGATION&#125;.</div><div class="line"><span class="bullet">* </span><span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span></div><div class="line"><span class="bullet">* </span>The transitionName for the<span class="markdown"> view background </span>will<span class="markdown"> be "android:navigation:background".</span></div><div class="line"><span class="bullet">* </span><span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></div><div class="line">*/</div><div class="line">public <span class="keyword">abstract</span> <span class="keyword">void</span> setNavigationBarColor(<span class="meta">@ColorInt</span> <span class="built_in">int</span> color);​</div></pre></td></tr></table></figure>
+<h2 id="刘海屏适配"><a href="#刘海屏适配" class="headerlink" title="刘海屏适配"></a>刘海屏适配</h2><h4 id="什么是刘海屏手机？"><a href="#什么是刘海屏手机？" class="headerlink" title="什么是刘海屏手机？"></a>什么是刘海屏手机？</h4><p>刘海屏的出现源自于厂商为了提高屏占比但是又没有新的策略可以将听筒、前置摄像头、传感器等元器件从手机正面移出，所以设计出一个刘海来承载这些元器件，达到充分利用手机顶部资源、提高手机屏占比的效果。</p>
+<p>就现在市场上的情况来说，刘海屏主要会区分成两类，一类是标准的 Android P Api，另外一类就是厂商在 Android P 以下的系统，做的特殊适配。例如：华为 P20 就是采用的 Android P 标准 Api 的方式，而 OPPO R15 就不一样了，它有自己的适配 Api。</p>
+<p><strong>哪些需情况要单独适配</strong></p>
+<p>就算是增加了刘海屏，你也可以发现，大部分都是“切割”的状态栏的区域，所以就面临了三种情况。</p>
+<ul>
+<li>有状态栏的页面，不会收到刘海屏的影响。</li>
+<li>全屏未适配刘海屏的页面，系统会对刘海屏区域进行切割，让整体 UI 页面做下移处理，避开刘海屏的显示。</li>
+<li>全屏已适配刘海屏的页面，可以兼容刘海屏，做到真正的全屏显示。</li>
+</ul>
+<p><strong>没有适配刘海屏的表现对比</strong></p>
+<p>刘海屏的切割区域，都存在于状态栏上，所以在有状态栏的页面上，是无需我们特殊处理的，系统会帮我们处理好。而对于全屏的页面，就需要单独的处理了。我这里，简单做了一个全屏页面，每个横条都是等宽的这样能看到布局上的差异。</p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_004.jpeg" alt=""></p>
+<p>从左至右分别是：关闭刘海屏、开启刘海屏但不支持、适配刘海屏。</p>
+<p>一个全屏的页面，当没有支持刘海屏又碰到了刘海屏，会导致 UI 下沉，如果这不是一个列表的布局，底部的控件就会被遮挡。</p>
+<p>例如下面这样的情况：</p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_005.jpeg" alt=""></p>
+<p><strong>刘海屏的适配</strong></p>
+<p>说那么多，最终我们还是需要用技术的方式来适配刘海屏。Android P 的刘海屏，是有标准的 Api 来进行适配，而对于一些厂商自己的刘海屏设备，例如：OPPO R15，就需要遵循它的开发文档进行单独适配。</p>
+<p>还有一些被刘海遮挡区域的效果，其实主要是依赖 UI 设计师来规避了，不要在可能出现刘海切割的地方，设计可操作的区域，影响用户操作。</p>
+<p>Android P 为最新的刘海屏，提供了专门的 Api 来支持：DisplayCutout。</p>
+<h4 id="开启刘海屏"><a href="#开启刘海屏" class="headerlink" title="开启刘海屏"></a>开启刘海屏</h4><p>我们在全屏的页面，需要单独开启支持刘海屏。而 Google 提供的适配方案，可以设置是否在全屏模式下，使用刘海屏的区域。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">WindowManager.LayoutParams lp = getWindow().getAttributes()<span class="comment">;</span></div><div class="line">lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS<span class="comment">;</span></div><div class="line">getWindow().setAttributes(lp)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>新的布局属性 <code>layoutInDisplayCutoutMode</code> 包含三种可选的模式</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS = <span class="number">1</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT = <span class="number">0</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER = <span class="number">2</span>;</div></pre></td></tr></table></figure>
+<h4 id="刘海屏的高度"><a href="#刘海屏的高度" class="headerlink" title="刘海屏的高度"></a>刘海屏的高度</h4><p>在全屏模式下，我们需要有办法获取到刘海屏凹槽的高度，才可以做到设计和布局的时候，留出安全距离。</p>
+<p>虽然 Google 要求，刘海屏的凹槽，必须和刘海的高度保持一致，而刘海屏又被隐藏在状态栏了，所以有一个思路是直接获取状态栏的高度，来判断刘海之外，可布局的安全区域。</p>
+<p>不过 Android P 已经预留出了标准的测量 刘海屏凹槽 的 Api：<code>DisplayCutout</code>。</p>
+<p>刘海屏的凹槽，就在屏幕的中间，所以只有 <code>getSafeInsetTop()</code> 方法返回的结果，是我们需要的，而其他的 <code>getSafeInsetXxx()</code> 方法，直接返回的是 0 。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">view</span>.postDelayed(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void <span class="keyword">run</span>() &#123;</div><div class="line">        DisplayCutout displayCutout = <span class="keyword">view</span>.getRootWindowInsets().getDisplayCutout();</div><div class="line">        <span class="keyword">Log</span>.<span class="built_in">i</span>(<span class="string">"cxmyDev"</span>, <span class="string">"SafeInsetBottom:"</span> + displayCutout.getSafeInsetBottom());</div><div class="line">        <span class="keyword">Log</span>.<span class="built_in">i</span>(<span class="string">"cxmyDev"</span>, <span class="string">"SafeInsetLeft:"</span> + displayCutout.getSafeInsetLeft());</div><div class="line">        <span class="keyword">Log</span>.<span class="built_in">i</span>(<span class="string">"cxmyDev"</span>, <span class="string">"SafeInsetRight:"</span> + displayCutout.getSafeInsetRight());</div><div class="line">        <span class="keyword">Log</span>.<span class="built_in">i</span>(<span class="string">"cxmyDev"</span>, <span class="string">"SafeInsetTop:"</span> + displayCutout.getSafeInsetTop());</div><div class="line">    &#125;</div><div class="line">&#125;, 100);</div></pre></td></tr></table></figure>
+<p>得到的结果，也可以看一下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">I/<span class="string">cxmyDev:</span> <span class="string">SafeInsetBottom:</span><span class="number">0</span></div><div class="line">I/<span class="string">cxmyDev:</span> <span class="string">SafeInsetLeft:</span><span class="number">0</span></div><div class="line">I/<span class="string">cxmyDev:</span> <span class="string">SafeInsetRight:</span><span class="number">0</span></div><div class="line">I/<span class="string">cxmyDev:</span> <span class="string">SafeInsetTop:</span><span class="number">112</span></div></pre></td></tr></table></figure>
+<h4 id="非标准-Api"><a href="#非标准-Api" class="headerlink" title="非标准 Api"></a>非标准 Api</h4><p>像 OPPO 这样的厂商，实现刘海屏的方式，也并不是按照 Android P 的标准做的，它完全是自己修改了刘海屏的实现方式。不过好在，都是会提供完备的适配文档，这就需要我们直接阅读他们提供的开发文档来进行适配。</p>
+<blockquote>
+<p>参考文档：<a href="https://open.oppomobile.com/wiki/doc#id=10139" target="_blank" rel="external">OPPO的刘海屏适配文档</a></p>
+</blockquote>
+<p>对于 OPPO 而言，它刘海的高度是固定的，就是 80px。</p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_006.jpeg" alt=""></p>
+<p>判断当前设备是否是刘海屏，也提供了对应的 Api，可以用以下方法获取。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">context</span><span class="selector-class">.getPackageManager</span>()<span class="selector-class">.hasSystemFeature</span>(“<span class="selector-tag">com</span><span class="selector-class">.oppo</span><span class="selector-class">.feature</span><span class="selector-class">.screen</span><span class="selector-class">.heteromorphism</span>”)</div></pre></td></tr></table></figure>
+<p>返回 true 为刘海屏，但是这种方法只能识别 OPPO 品牌所支持的刘海屏。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/屏幕适配/" rel="tag"># 屏幕适配</a>
+          
+            <a href="/tags/全面屏/" rel="tag"># 全面屏</a>
+          
+            <a href="/tags/刘海屏/" rel="tag"># 刘海屏</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/14/CentOS上安装Jenkins/" rel="next" title="CentOS上安装Jenkins">
+                <i class="fa fa-chevron-left"></i> CentOS上安装Jenkins
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="谢德良" />
+          <p class="site-author-name" itemprop="name">谢德良</p>
+           
+              <p class="site-description motion-element" itemprop="description">xiedeiang.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全面屏适配"><span class="nav-number">2.</span> <span class="nav-text">全面屏适配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是全面屏手机？"><span class="nav-number">2.0.1.</span> <span class="nav-text">什么是全面屏手机？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#屏占比适配"><span class="nav-number">2.0.2.</span> <span class="nav-text">屏占比适配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟导航键适配"><span class="nav-number">2.0.3.</span> <span class="nav-text">虚拟导航键适配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刘海屏适配"><span class="nav-number">3.</span> <span class="nav-text">刘海屏适配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是刘海屏手机？"><span class="nav-number">3.0.1.</span> <span class="nav-text">什么是刘海屏手机？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启刘海屏"><span class="nav-number">3.0.2.</span> <span class="nav-text">开启刘海屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刘海屏的高度"><span class="nav-number">3.0.3.</span> <span class="nav-text">刘海屏的高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非标准-Api"><span class="nav-number">3.0.4.</span> <span class="nav-text">非标准 Api</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">谢德良</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
