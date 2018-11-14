@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="屏幕适配,全面屏,刘海屏," />
+  <meta name="keywords" content="屏幕适配," />
 
 
 
@@ -88,18 +88,18 @@
 <meta property="og:site_name" content="Nope">
 <meta property="og:description" content="简介屏幕适配主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。
 全面屏适配什么是全面屏手机？该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比">
-<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_002.png">
 <meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_003.png">
 <meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_004.jpeg">
 <meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_005.jpeg">
 <meta property="og:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_006.jpeg">
-<meta property="og:updated_time" content="2018-04-26T08:58:22.000Z">
+<meta property="og:updated_time" content="2018-04-27T09:52:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android-屏幕适配浅析">
 <meta name="twitter:description" content="简介屏幕适配主要因为近期市面上主流的机器屏幕发生了不小的变化，出现了各种各样的“全面屏”、“刘海屏”等“非标准”屏幕，那么作为我们开发者来讲，为了给用户带来更好的体验，我们就要适配这些新出的屏幕。
 全面屏适配什么是全面屏手机？该怎么定义全面屏手机呢？小米最初也只是对其有一个抽象的定义「正面几乎全是屏幕，仿佛握着一块透明玻璃」，全面屏顾名思义就是一整面都是屏幕，理想中的全面屏就是达到100%的屏占比">
-<meta name="twitter:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.jpg">
 
 
 
@@ -419,30 +419,33 @@
 </tbody>
 </table>
 <p>由于全面屏手机在追求更小的边框设计、更高的屏占比，这些变化导致了手机发生两种变化，即<font color="#dd0000">更大的屏幕纵横比</font>和<font color="#dd0000">虚拟导航键</font>，所以应从这两个方面进行适配。</p>
-<h4 id="屏占比适配"><a href="#屏占比适配" class="headerlink" title="屏占比适配"></a>屏占比适配</h4><p>声明Maximum Aspect Ratio</p>
-<p>随着大量的手机厂商将目光投向全面屏，为了顺应市场需求，谷歌向开发者提供了官方的Android全面屏适配指南。</p>
-<blockquote>
+<p>我们这里使用 <font color="#dd0000">OPPO R15</font> 来举例子，其分辨率为：2280*1080，纵横比为：19:9</p>
+<h4 id="屏占比适配"><a href="#屏占比适配" class="headerlink" title="屏占比适配"></a>屏占比适配</h4><blockquote>
 <p>相关参考文档：<a href="https://android-developers.googleblog.com/2017/03/update-your-app-to-take-advantage-of.html" target="_blank" rel="external">谷歌官方全面屏适配指南</a></p>
 </blockquote>
-<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.png" alt=""></p>
+<p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_001.jpg" alt=""></p>
 <ul>
-<li>（左）18.5：9设备上的最大纵横比设置为16：9的应用程序</li>
-<li>（右）18.5：9设备上最大纵横比设置为18.5：9以上的应用程序</li>
+<li>（左）19：9设备上的最大纵横比设置为16：9的应用程序</li>
+<li>（中）19：9设备上最大纵横比设置为19：9以上的应用程序（非沉浸式状态栏）</li>
+<li>（右）19：9设备上最大纵横比设置为19：9以上的应用程序（沉浸式状态栏）</li>
 </ul>
+<p>声明Maximum Aspect Ratio 标注该应用适配全面屏</p>
+<p>随着大量的手机厂商将目光投向全面屏，为了顺应市场需求，谷歌向开发者提供了官方的Android全面屏适配指南。</p>
 <p>我们可以看到，左侧的应用程序上下都有黑边，并没有完全利用全面屏，针对这种情况我们做如下的适配：</p>
 <p><strong>1. 在AndroidManifest.xml中可做如下配置:</strong> </p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta-data <span class="string">android:</span>name=<span class="string">"android.max_aspect"</span> <span class="string">android:</span>value=<span class="string">"ratio_float"</span>/&gt;</div></pre></td></tr></table></figure>
-<p>其中ratio_float为纵横比，官方建议设为2.1或更大，因为目前市场上出现的全面屏手机屏幕纵横比最大的为三星的18.5:9=2.0556，但是如果以后要是出现纵横比更大的手机，设置值就要更大。</p>
+<p>其中ratio_float为纵横比，官方建议设为2.1或更大，当前OPPO R15手机屏幕纵横比为19:9=2.1111，但是如果以后要是出现纵横比更大的手机，设置值就要更大。</p>
 <p><strong>2.若没有声明该属性，而且</strong></p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">android:</span>resizeableActivity</div></pre></td></tr></table></figure>
-<p>也为false的话，则应用支持的应用的最大纵横比的默认值为1.86，小于2.0556，即无法支持全面屏，屏幕的上下就会留有黑框，如上图左。</p>
+<p>也为false的话，则应用支持的应用的最大纵横比的默认值为1.86，小于2.1111，即无法支持全面屏，屏幕的上下就会留有黑框，如上图左。</p>
+<p>备注：该属性在<font color="#dd0000">compileSdkVersion=24</font>版本以上才支持，并且实际验证过程中在OPPO R15没有起到效果，在华为Nova3中起到了效果</p>
 <p><strong>怎样防止图片变形</strong></p>
 <p>当使用layout布局实现界面类APP时，容易出现图片被拉伸的情况，如打开淘宝的页面就会变成如下所示：</p>
 <p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_002.png" alt=""></p>
 <p>对于这种情况，解决的办法是：</p>
 <ul>
 <li>使用相对布局设计界面</li>
-<li>为对应的分辨率提供相应布局、图片等资源（drawable-xxhdpi-2016x1080、drawable-long 等）</li>
+<li>为对应的分辨率提供相应布局、图片等资源（drawable-2280x1080、drawable-long 等）</li>
 <li>使用颜色填充布局、.9图片填充背景</li>
 </ul>
 <h4 id="虚拟导航键适配"><a href="#虚拟导航键适配" class="headerlink" title="虚拟导航键适配"></a>虚拟导航键适配</h4><p>为了保证虚拟键和App的界面风格一致，应注意设置虚拟键颜色与主题协调，所以在进行虚拟键的设置时，要注意以下几点：</p>
@@ -462,6 +465,8 @@
 <p><img src="/2018/04/26/Android-屏幕适配浅析/screen_adaptation_003.png" alt=""></p>
 <p>调用以下接口即可 window.setNavigationBarColor (int color)。在调用该接口时，还需要设置一些flag，详见该接口的注释说明（即下文）：</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"><span class="markdown">/**</span></span></div><div class="line"><span class="bullet">* </span>Sets the<span class="markdown"> color of </span>the<span class="markdown"> navigation bar to &#123;@param color&#125;.</span></div><div class="line"><span class="bullet">*</span></div><div class="line"><span class="bullet">* </span>For this to take effect,</div><div class="line"><span class="bullet">* </span>the<span class="markdown"> window must be drawing </span>the<span class="markdown"> system bar backgrounds with</span></div><div class="line"><span class="bullet">* </span>&#123;@link android.view.WindowManager.LayoutParams#FLAG<span class="emphasis">_DRAWS_</span>SYSTEM<span class="emphasis">_BAR_</span>BACKGROUNDS&#125; and</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.WindowManager.LayoutParams#FLAG<span class="emphasis">_TRANSLUCENT_</span>NAVIGATION&#125; must not be set.</div><div class="line"><span class="bullet">*</span></div><div class="line"><span class="bullet">* </span>If &#123;@param color&#125; is not opaque, consider setting</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.View#SYSTEM<span class="emphasis">_UI_</span>FLAG<span class="emphasis">_LAYOUT_</span>STABLE&#125; and</div><div class="line"><span class="bullet">* </span>&#123;@link android.view.View#SYSTEM<span class="emphasis">_UI_</span>FLAG<span class="emphasis">_LAYOUT_</span>HIDE_NAVIGATION&#125;.</div><div class="line"><span class="bullet">* </span><span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span></div><div class="line"><span class="bullet">* </span>The transitionName for the<span class="markdown"> view background </span>will<span class="markdown"> be "android:navigation:background".</span></div><div class="line"><span class="bullet">* </span><span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></div><div class="line">*/</div><div class="line">public <span class="keyword">abstract</span> <span class="keyword">void</span> setNavigationBarColor(<span class="meta">@ColorInt</span> <span class="built_in">int</span> color);​</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">item</span> <span class="built_in">name</span>=<span class="string">"android:navigationBarColor"</span>&gt;要设置的颜色值&lt;/<span class="built_in">item</span>&gt;</div></pre></td></tr></table></figure>
+<p>注意，该方法在Android5.0以上生效，但是全面屏了肯定上7.0！</p>
 <h2 id="刘海屏适配"><a href="#刘海屏适配" class="headerlink" title="刘海屏适配"></a>刘海屏适配</h2><h4 id="什么是刘海屏手机？"><a href="#什么是刘海屏手机？" class="headerlink" title="什么是刘海屏手机？"></a>什么是刘海屏手机？</h4><p>刘海屏的出现源自于厂商为了提高屏占比但是又没有新的策略可以将听筒、前置摄像头、传感器等元器件从手机正面移出，所以设计出一个刘海来承载这些元器件，达到充分利用手机顶部资源、提高手机屏占比的效果。</p>
 <p>就现在市场上的情况来说，刘海屏主要会区分成两类，一类是标准的 Android P Api，另外一类就是厂商在 Android P 以下的系统，做的特殊适配。例如：华为 P20 就是采用的 Android P 标准 Api 的方式，而 OPPO R15 就不一样了，它有自己的适配 Api。</p>
 <p><strong>哪些需情况要单独适配</strong></p>
@@ -533,10 +538,6 @@
           
             <a href="/tags/屏幕适配/" rel="tag"># 屏幕适配</a>
           
-            <a href="/tags/全面屏/" rel="tag"># 全面屏</a>
-          
-            <a href="/tags/刘海屏/" rel="tag"># 刘海屏</a>
-          
         </div>
       
 
@@ -557,6 +558,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/10/macaca环境搭建/" rel="prev" title="macaca环境搭建">
+                macaca环境搭建 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -628,7 +633,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -650,7 +655,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
