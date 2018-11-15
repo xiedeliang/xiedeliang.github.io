@@ -82,20 +82,47 @@
 
 <meta name="description" content="最近在腾讯云上购买了一太云主机，想来想去目前正好在研究Android的持续集成，所以就先在这台机器上搞起来吧
 我选择的是CentOS 7.4 64位 系统，安装好系统之后，开始搞吧
-关于CentOS 7.4 下安装Jenkins">
+
+CentOS 7.4 下安装Jenkins，移步链接
+
+Android 开发环境
+Gradle下载
+JDK下载
+SDK下载
+
+安装好后依次查看对应版本，及安装状态是否成功
+export JAVA_HOME=/serv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 持续集成">
 <meta property="og:url" content="http://yoursite.com/2018/03/14/Android-持续集成/index.html">
 <meta property="og:site_name" content="Nope">
 <meta property="og:description" content="最近在腾讯云上购买了一太云主机，想来想去目前正好在研究Android的持续集成，所以就先在这台机器上搞起来吧
 我选择的是CentOS 7.4 64位 系统，安装好系统之后，开始搞吧
-关于CentOS 7.4 下安装Jenkins">
-<meta property="og:updated_time" content="2018-03-14T03:41:39.000Z">
+
+CentOS 7.4 下安装Jenkins，移步链接
+
+Android 开发环境
+Gradle下载
+JDK下载
+SDK下载
+
+安装好后依次查看对应版本，及安装状态是否成功
+export JAVA_HOME=/serv">
+<meta property="og:updated_time" content="2018-11-15T07:00:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 持续集成">
 <meta name="twitter:description" content="最近在腾讯云上购买了一太云主机，想来想去目前正好在研究Android的持续集成，所以就先在这台机器上搞起来吧
 我选择的是CentOS 7.4 64位 系统，安装好系统之后，开始搞吧
-关于CentOS 7.4 下安装Jenkins">
+
+CentOS 7.4 下安装Jenkins，移步链接
+
+Android 开发环境
+Gradle下载
+JDK下载
+SDK下载
+
+安装好后依次查看对应版本，及安装状态是否成功
+export JAVA_HOME=/serv">
 
 
 
@@ -364,7 +391,17 @@
       
         <p>最近在腾讯云上购买了一太云主机，想来想去目前正好在研究Android的持续集成，所以就先在这台机器上搞起来吧</p>
 <p>我选择的是CentOS 7.4 64位 系统，安装好系统之后，开始搞吧</p>
-<p>关于CentOS 7.4 下安装Jenkins</p>
+<blockquote>
+<p>CentOS 7.4 下安装Jenkins，<a href="http://xiedeliang.com/2018/03/14/CentOS上安装Jenkins/#more" target="_blank" rel="external">移步链接</a></p>
+</blockquote>
+<h4 id="Android-开发环境"><a href="#Android-开发环境" class="headerlink" title="Android 开发环境"></a>Android 开发环境</h4><ol>
+<li><a href="http://services.gradle.org/distributions/" target="_blank" rel="external">Gradle下载</a></li>
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">JDK下载</a></li>
+<li><a href="http://www.androiddevtools.cn" target="_blank" rel="external">SDK下载</a></li>
+</ol>
+<p>安装好后依次查看对应版本，及安装状态是否成功</p>
+<p>export JAVA_HOME=/server/java/default<br>export GRADLE_HOME=/server/gradle/gradle<br>export ANDROID_HOME=/server/androidSDK<br>export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH</p>
+<p>find / -name tools.jar</p>
 
       
     </div>
@@ -466,8 +503,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -529,6 +575,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-开发环境"><span class="nav-number">1.</span> <span class="nav-text">Android 开发环境</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

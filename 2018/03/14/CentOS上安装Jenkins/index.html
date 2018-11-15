@@ -112,7 +112,9 @@
 <meta property="og:image" content="http://yoursite.com/2018/03/14/CentOS上安装Jenkins/centos_018.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/14/CentOS上安装Jenkins/centos_019.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/14/CentOS上安装Jenkins/centos_020.png">
-<meta property="og:updated_time" content="2018-11-14T09:40:56.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/CentOS上安装Jenkins/centos_021.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/CentOS上安装Jenkins/centos_022.png">
+<meta property="og:updated_time" content="2018-11-15T06:47:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS上安装Jenkins">
 <meta name="twitter:description" content="买了一个腾讯云的主机，闲来无事，开始折腾CentOS上集成个Jenkins环境。登录云主机，查看当前主机系统，如果不是CentOS可以选择重新安装系统，我这里重装了一下，改成了CentOS7,稍等一会系统就会安装好了，接下来登录云主机，开始搞起来吧。
@@ -460,6 +462,15 @@ JENKINS_PORT=&quot;8989&quot;  此端口不冲突可以不修改
 </ul>
 </li>
 </ol>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><ul>
+<li><p>启动Jenkins时报下面错误时</p>
+<p>  <img src="/2018/03/14/CentOS上安装Jenkins/centos_021.png" alt="图片021"></p>
+<pre><code>原因：没有找到 java 命令（一般手动配置java环境变量会这样）
+使用：vim /etc/rc.d/init.d/jenkins修改Jenkins配置
+添加如下内容即可
+</code></pre><p>  <img src="/2018/03/14/CentOS上安装Jenkins/centos_022.png" alt="图片022"></p>
+</li>
+</ul>
 
       
     </div>
@@ -643,7 +654,7 @@ JENKINS_PORT=&quot;8989&quot;  此端口不冲突可以不修改
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#买了一个腾讯云的主机，闲来无事，开始折腾CentOS上集成个Jenkins环境。"><span class="nav-number">1.</span> <span class="nav-text">买了一个腾讯云的主机，闲来无事，开始折腾CentOS上集成个Jenkins环境。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-环境安装"><span class="nav-number">2.</span> <span class="nav-text">Java 环境安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Jenkins"><span class="nav-number">3.</span> <span class="nav-text">安装Jenkins</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#买了一个腾讯云的主机，闲来无事，开始折腾CentOS上集成个Jenkins环境。"><span class="nav-number">1.</span> <span class="nav-text">买了一个腾讯云的主机，闲来无事，开始折腾CentOS上集成个Jenkins环境。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-环境安装"><span class="nav-number">2.</span> <span class="nav-text">Java 环境安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Jenkins"><span class="nav-number">3.</span> <span class="nav-text">安装Jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常"><span class="nav-number">4.</span> <span class="nav-text">异常</span></a></li></ol></div>
             
 
           </div>

@@ -86,7 +86,7 @@
 
 JDK
 SDK
-gradle
+Gradle
 
 安装前准备
 1、 Android sdk-linux 
@@ -102,13 +102,28 @@ gradle
 
 JDK
 SDK
-gradle
+Gradle
 
 安装前准备
 1、 Android sdk-linux 
 2、 gradle 
 3、 jdk">
-<meta property="og:updated_time" content="2018-02-24T08:10:31.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_004.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_005.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_006.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_007.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_008.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_009.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_010.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_011.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_001.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_002.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_003.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_004.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_006.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_005.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/linux_007.png">
+<meta property="og:updated_time" content="2018-11-15T07:42:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下Android环境搭建">
 <meta name="twitter:description" content="最近在研究linux下搭建Android编译环境，用来自动化发版打包，由于自己对命令行不是很敏感，所以还是走了一些弯路，在这里记录一下。
@@ -117,12 +132,13 @@ gradle
 
 JDK
 SDK
-gradle
+Gradle
 
 安装前准备
 1、 Android sdk-linux 
 2、 gradle 
 3、 jdk">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/10/Linux下Android环境搭建/centos_004.png">
 
 
 
@@ -395,16 +411,81 @@ gradle
 <ul>
 <li>JDK</li>
 <li>SDK</li>
-<li>gradle</li>
+<li><a href="http://services.gradle.org/distributions/" target="_blank" rel="external">Gradle</a></li>
 </ul>
 <h4 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h4><ul>
 <li>1、 Android sdk-linux </li>
 <li>2、 gradle </li>
 <li>3、 jdk</li>
 </ul>
-<h4 id="首先安装jdk"><a href="#首先安装jdk" class="headerlink" title="首先安装jdk"></a>首先安装jdk</h4><h4 id="安装sdk"><a href="#安装sdk" class="headerlink" title="安装sdk"></a>安装sdk</h4><ul>
-<li>解压到指定文件夹</li>
+<p><strong>首先安装jdk</strong></p>
+<ol>
+<li><p>利用yum源来安装jdk（此方法不需要配置环境变量）</p>
+<p> 查看yum库中的java安装包 ：<code>yum -y list java*</code></p>
+<p> <img src="/2018/02/10/Linux下Android环境搭建/centos_004.png" alt="图片004"></p>
+<p> 安装需要的jdk版本的所有java程序：<code>yum -y install java-1.8.0-openjdk*</code></p>
+<p> <img src="/2018/02/10/Linux下Android环境搭建/centos_005.png" alt="图片005"><br> 安装完成，可以使用<code>java -version</code> 查看当前jdk版本</p>
+<p> 卸载使用：</p>
+<pre><code>yum -y remove java-1.8.0-openjdk*
+</code></pre></li>
+</ol>
+<ol>
+<li><p>使用Xftp将下载好的jdk-8u191-linux-x64.rpm 上传到CentOs上，然后使用rpm安装</p>
+<p> Xftp安装指引参考<a href="https://blog.csdn.net/qq997404392/article/details/79611606" target="_blank" rel="external">链接</a></p>
+<p> 我这里放到了/home/xdl文件夹下，查看一下文件</p>
+<p> <img src="/2018/02/10/Linux下Android环境搭建/centos_006.png" alt="图片006"></p>
+<p> 使用rpm命令安装： <code>rpm -ivh jdk-8u191-linux-x64.rpm</code></p>
+<p> <img src="/2018/02/10/Linux下Android环境搭建/centos_007.png" alt="图片007"></p>
+<p> 卸载使用：</p>
+<pre><code>rpm -qa | grep jdk 查询已安装jdk名称
+rpm -e --nodeps jdk1.8 来卸载
+</code></pre></li>
+<li><p>使用Xftp将下载好的jdk-8u151-linux-x64.tar.gz上传到CentOs上，然后使用解压以及配置环境变量的方式进行安装</p>
+<ol>
+<li>复制安装包到/usr/develop/java目录中(目录可以自己选)：<br><code>cp jdk-8u151-linux-x64.tar.gz  /usr/develop/java</code><br><img src="/2018/02/10/Linux下Android环境搭建/centos_008.png" alt="图片008"></li>
+<li>解压缩包：tar -zxvf jdk-8u151-linux-x64.tar.gz<br><img src="/2018/02/10/Linux下Android环境搭建/centos_009.png" alt="图片009"><br> <code>解压后jdk对应的文件夹为jdk1.8.0_151</code></li>
+<li><p>配置环境变量</p>
+<p> 输入：<code>vim /etc/profile</code><br> 向文件里面追加以下内容：<br><img src="/2018/02/10/Linux下Android环境搭建/centos_010.png" alt="图片010"><br><em>复制如下内容</em><br><code>#set java environment
+JAVA_HOME=/usr/develop/java/jdk1.8.0_151
+JRE_HOME=$JAVA_HOME/jre
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+export JAVA_HOME JRE_HOME PATH CLASSPATH</code></p>
+</li>
+<li>使配置文件生效：source /etc/profile<br><img src="/2018/02/10/Linux下Android环境搭建/centos_011.png" alt="图片011"></li>
+</ol>
+</li>
+</ol>
+<p><strong>安装 Gradle</strong> </p>
+<p>将下载下来的gradle-4.1-all.zip文件使用ftp上传到云主机上，我这里放在了<code>/home/xdl</code>文件夹下</p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_001.png" alt=""></p>
+<p>解压gradle-4.1-all.zip(为了整齐，我把所有开发工具都放到/server文件夹下面了)</p>
+<ul>
+<li>将文件copy到自定义(/server）的文件夹下</li>
+<li>使用命令<code>unzip gradle-4.1-all.zip</code>进行解压</li>
 </ul>
+<p>解压后对应的<code>gradle-4.1</code>文件夹就是我们要的文件夹，具体如下：</p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_002.png" alt=""></p>
+<p>配置gradle环境变量</p>
+<p><code>vim /etc/profile</code></p>
+<p>在文件中增加GRADLE_HOME输出路径,并且修订PATH设置如下</p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_003.png" alt=""></p>
+<p>使<code>profile</code> 生效：<code>source /etc/profile</code></p>
+<p>查看gradle配置是否生效：<code>gradle -version</code></p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_004.png" alt=""></p>
+<p><strong>安装 Android SDK</strong> </p>
+<p>解压SDK到目录<code>/server/androidSDK</code></p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_006.png" alt=""></p>
+<p>配置SDK环境变量</p>
+<p><code>vim /etc/profile</code></p>
+<p>在文件中增加GRADLE_HOME输出路径,并且修订PATH设置如下:</p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_005.png" alt=""></p>
+<pre><code>export ANDROID_HOME=/server/androidSDK
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$JAVA_HOME/bin:$GRADLE_HOME/bin:$PATH
+</code></pre><p>使<code>profile</code> 生效：<code>source /etc/profile</code></p>
+<p>查看SDK配置是否生效：<code>android</code></p>
+<p><img src="/2018/02/10/Linux下Android环境搭建/linux_007.png" alt=""></p>
+<p>以上就已经全部安装完成了，当然我这个不需要安装Android Studio 我只是需要一个编译环境，如果需要请自行安装</p>
 
       
     </div>
@@ -588,7 +669,7 @@ gradle
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装前准备"><span class="nav-number">1.</span> <span class="nav-text">安装前准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#首先安装jdk"><span class="nav-number">2.</span> <span class="nav-text">首先安装jdk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装sdk"><span class="nav-number">3.</span> <span class="nav-text">安装sdk</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装前准备"><span class="nav-number">1.</span> <span class="nav-text">安装前准备</span></a></li></ol></div>
             
 
           </div>
